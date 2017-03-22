@@ -119,6 +119,7 @@ namespace GangGang
 
         public int Heath { get; set; }
         public int MaxHealth { get; set; }
+        public int Regen { get; set; }
         //public int ___ { get; set; }
         //public int ___ { get; set; }
         //public int ___ { get; set; }
@@ -130,6 +131,11 @@ namespace GangGang
         public virtual void RetrivedDamage(int Damage, Entity sender) { }
 
         public virtual void Destryed(Entity sender) { }
+
+        
+
+        public virtual void CleanUp() { }
+
 
 
         public override void Click(bool yes)

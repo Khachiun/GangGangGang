@@ -34,3 +34,10 @@ C:\Users\Elias\Desktop\GangGangGang\Czaplicki.SFMLE\bin\Debug\Czaplicki.Universa
 C:\Users\Elias\Desktop\GangGangGang\Czaplicki.SFMLE\obj\Debug\Czaplicki.SFMLE.csprojResolveAssemblyReference.cache
 C:\Users\Elias\Desktop\GangGangGang\Czaplicki.SFMLE\obj\Debug\Czaplicki.SFMLE.dll
 C:\Users\Elias\Desktop\GangGangGang\Czaplicki.SFMLE\obj\Debug\Czaplicki.SFMLE.pdb
+C:\Users\jessy.brodin\Documents\GitHub\GangGangGang\Czaplicki.SFMLE\bin\Debug\Czaplicki.SFMLE.dll
+C:\Users\jessy.brodin\Documents\GitHub\GangGangGang\Czaplicki.SFMLE\bin\Debug\Czaplicki.SFMLE.pdb
+C:\Users\jessy.brodin\Documents\GitHub\GangGangGang\Czaplicki.SFMLE\bin\Debug\Czaplicki.Universal.dll
+C:\Users\jessy.brodin\Documents\GitHub\GangGangGang\Czaplicki.SFMLE\bin\Debug\Czaplicki.Universal.pdb
+C:\Users\jessy.brodin\Documents\GitHub\GangGangGang\Czaplicki.SFMLE\obj\Debug\Czaplicki.SFMLE.csprojResolveAssemblyReference.cache
+C:\Users\jessy.brodin\Documents\GitHub\GangGangGang\Czaplicki.SFMLE\obj\Debug\Czaplicki.SFMLE.dll
+C:\Users\jessy.brodin\Documents\GitHub\GangGangGang\Czaplicki.SFMLE\obj\Debug\Czaplicki.SFMLE.pdb
