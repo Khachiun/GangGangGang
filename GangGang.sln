@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game", "Game\Game.csproj", "{885C96A7-D026-4CBC-AF64-13D71481A8D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Czaplicki.SFMLE", "Czaplicki.SFMLE\Czaplicki.SFMLE.csproj", "{DCAA6D3F-368A-4999-BAA1-696E3E2AF007}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Czaplicki.Universal", "Czaplicki.Universal\Czaplicki.Universal.csproj", "{EB9CD57F-93E4-4ADC-9A34-8BB07946BFB3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{885C96A7-D026-4CBC-AF64-13D71481A8D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{885C96A7-D026-4CBC-AF64-13D71481A8D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{885C96A7-D026-4CBC-AF64-13D71481A8D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{885C96A7-D026-4CBC-AF64-13D71481A8D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCAA6D3F-368A-4999-BAA1-696E3E2AF007}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCAA6D3F-368A-4999-BAA1-696E3E2AF007}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCAA6D3F-368A-4999-BAA1-696E3E2AF007}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCAA6D3F-368A-4999-BAA1-696E3E2AF007}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB9CD57F-93E4-4ADC-9A34-8BB07946BFB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB9CD57F-93E4-4ADC-9A34-8BB07946BFB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB9CD57F-93E4-4ADC-9A34-8BB07946BFB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB9CD57F-93E4-4ADC-9A34-8BB07946BFB3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
