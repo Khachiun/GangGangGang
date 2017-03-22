@@ -16,6 +16,11 @@ namespace GangGang
             get { return text.DisplayedString; }
             set { text.DisplayedString = value; }
         }
+        public Color Color
+        {
+            get { return text.Color; }
+            set { text.Color = value; }
+        }
         private static int Count { get; set; }
         public TextComponent(string text, int layer) : base("", layer)
         {
@@ -24,6 +29,6 @@ namespace GangGang
             base.singleUseDrawble = true;
             Regiser(this.ID, this.text);
         }
-        
+
     }
 }

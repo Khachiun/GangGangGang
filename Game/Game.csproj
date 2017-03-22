@@ -65,9 +65,12 @@
     <Compile Include="Game.cs" />
     <Compile Include="Input\Butten.cs" />
     <Compile Include="Input\Controller.cs" />
+    <Compile Include="Options\AttackComponent.cs" />
+    <Compile Include="Options\CharecterSpawnComponent.cs" />
     <Compile Include="Options\MoveComponent.cs" />
     <Compile Include="Options\OptionFoundation.cs" />
     <Compile Include="Options\WorkComponent.cs" />
+    <Compile Include="TileEntitys\Buildings\Building.cs" />
     <Compile Include="TileEntitys\Resources\BasicCristal.cs" />
     <Compile Include="TileEntitys\Resources\ResourceBase.cs" />
     <Compile Include="TileEntitys\Units\Worker.cs" />
@@ -142,9 +145,7 @@
       <Name>Czaplicki.Universal</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="TileEntitys\Buildings\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

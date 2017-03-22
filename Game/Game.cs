@@ -16,10 +16,6 @@ namespace GangGang
         public int Cristals { get; set; }
     }
 
-
-
-
-
     public class Game : Entity
     {
         public static bool UseController { get; set; }
@@ -67,6 +63,9 @@ namespace GangGang
 
             BasicCristal r = new BasicCristal(9, 2);
             tilemap.AddTileEntity(r);
+
+            Building b = new Building(9, 7);
+            tilemap.AddTileEntity(b);
 
             shape = new CircleShape();
             shape.FillColor = new Color(0, 0, 0, 0);

@@ -34,6 +34,9 @@ namespace GangGang
             draw.Offset += -Hexagon.OFFSET_TO_CENTER;
             Adopt(draw);
 
+            MaxHealth = 10;
+            Regen = 1;
+
             //Option o = new Option();
             //o.UiName = "option";
             //Adopt(o);
@@ -41,6 +44,8 @@ namespace GangGang
             WorkComponent work = new WorkComponent();
             Adopt(work);
 
+            AttackComponent attack = new AttackComponent(5);
+            Adopt(attack);
 
             MoveComponent move = new MoveComponent();
             Adopt(move);

@@ -27,6 +27,7 @@ namespace GangGang
         static List<Vector2i> pattern;
         public MoveComponent() : base(new DrawComponent("MoveHexagon", Layer.UNIT_BASE - 1))
         {
+            UiName = "Move";
         }
 
         protected override List<Vector2i> GetAvalibleSpots(TileMap Map, TileEntity parent)
