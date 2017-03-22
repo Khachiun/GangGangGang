@@ -62,6 +62,16 @@ namespace GangGang
 
 
     }
+
+    class AnimationComponent : DrawComponent
+    {
+        RectangelShape shape;
+        public AnimationComponent(string ID, int layer) : base(ID, layer)
+        {
+            
+        }
+    }
+
     class StaticRectangel : Drawable
     {
         private Texture texture;

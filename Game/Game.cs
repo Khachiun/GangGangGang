@@ -399,6 +399,12 @@ namespace GangGang
                 {
                     options[selected].Display = false;
                     selected--;
+
+                    if (selected <= -1)
+                    {
+                        selected = options.Count - 1;
+                    }
+
                     options[selected].Display = true;
 
                 }
@@ -406,8 +412,13 @@ namespace GangGang
                 {
                     options[selected].Display = false;
                     selected++;
-                    options[selected].Display = true;
 
+                    if (selected >= options.Count)
+                    {
+                        selected = 0;
+                    }
+
+                    options[selected].Display = true;
                 }
             }
 
