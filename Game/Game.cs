@@ -27,9 +27,7 @@ namespace GangGang
         public static string Out = "";
 
         public static Random randome = new Random();
-
-        public static event Action NextTurnEvent;
-
+        
         public View Camera { get; set; }
 
         Player players;
@@ -67,7 +65,7 @@ namespace GangGang
             worker2.Owner = players.GetNext();
             tilemap.AddTileEntity(worker2);
 
-            Resource r = new Resource(9, 2);
+            BasicCristal r = new BasicCristal(9, 2);
             tilemap.AddTileEntity(r);
 
             shape = new CircleShape();
@@ -180,7 +178,8 @@ namespace GangGang
 
         public void Draw(CRenderWindow window)
         {
-            DrawManager.Render(window, this);
+            //DrawManager.Render(window, this);
+            DrawComponent.Manager.Render(window, this);
 
             if (debugEnabled)
             {
@@ -220,8 +219,12 @@ namespace GangGang
             players = players.GetNext();
             CurrrentPlayer = players;
 
-            NextTurnEvent?.Invoke();
-
+            List<TileEntity> list = new List<TileEntity>();
+            FetchAllActive<TileEntity>(ref list);
+            foreach (var item in list)
+            {
+                item.NextTurn();
+            }
         }
     }
 

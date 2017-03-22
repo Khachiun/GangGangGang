@@ -17,7 +17,7 @@ namespace GangGang
         {
             ConvexShape shape = Hexagon.GenHexagon();
             shape.FillColor = Color.Yellow.SetAlpha(150);
-            DrawManager.Register.Add("Caret", shape);
+            DrawComponent.Regiser("Caret", shape);
         }
 
         private Vector2i gridPos = new Vector2i();
@@ -36,8 +36,8 @@ namespace GangGang
 
             Game.Out += gridPos + "\n";
 
-            List<InteractivEntity> entitys = new List<InteractivEntity>();
-            Parent.FetchAllActive<InteractivEntity>(ref entitys);
+            List<InteractiveEntity> entitys = new List<InteractiveEntity>();
+            Parent.FetchAllActive<InteractiveEntity>(ref entitys);
             entitys.Sort((left, right) => right.Priority - left.Priority);
 
 

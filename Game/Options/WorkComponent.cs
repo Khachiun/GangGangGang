@@ -13,7 +13,7 @@ namespace GangGang
             ConvexShape hexagon = Hexagon.GenHexagon();
             hexagon.FillColor = Color.Green.SetAlpha(100);
             hexagon.OutlineThickness = 1;
-            DrawManager.Register.Add("MyWorkHexagon", hexagon);
+            DrawComponent.Regiser("MyWorkHexagon", hexagon);
         }
         public WorkComponent() : base(new DrawComponent("MyWorkHexagon", Layer.UNIT_BASE - 1))
         {
@@ -25,7 +25,7 @@ namespace GangGang
             List<Vector2i> list = new List<Vector2i>();
             foreach (Tile item in Map.Children)
             {
-                if (item.Entity is Resource)
+                if (item.Entity is ResourceBase)
                     list.Add(new Vector2i(item.X, item.Y));
             }
             return list;
@@ -33,7 +33,7 @@ namespace GangGang
 
         protected override void OnSelectedClick(TileEntity executer, Tile resiver)
         {
-            Resource r = resiver.Entity as Resource;
+            ResourceBase r = resiver.Entity as ResourceBase;
             r.Interacte(executer);
         }
     }

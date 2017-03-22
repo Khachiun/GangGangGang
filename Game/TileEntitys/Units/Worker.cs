@@ -15,7 +15,7 @@ namespace GangGang
         static Worker()
         {
             RectangleShape shape = new RectangleShape(new Square() * Hexagon.HEX_SIZE * 2, new Texture("Content/Assets/Textures/Ponn.png"));
-            DrawManager.Register.Add("Worker", shape);
+            DrawComponent.Regiser("Worker", shape);
 
             movementPattern = new List<Vector2i>() {
                 new Vector2i(-1,-1),

@@ -12,7 +12,10 @@ namespace Czaplicki.SFMLE
     {
         public static RenderArgs Default { get; set; } = new RenderArgs(RenderStates.Default);
 
+
+
         RenderStates rs;
+        
         public RenderArgs()
         {
             rs = RenderStates.Default;

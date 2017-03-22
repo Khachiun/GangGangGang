@@ -60,6 +60,7 @@
     <Compile Include="Collition\Priority.cs" />
     <Compile Include="Collition\RectangleCollition.cs" />
     <Compile Include="EntitySystem\Entity.cs" />
+    <Compile Include="EntitySystem\ExternalInteractiveEntity.cs" />
     <Compile Include="EntitySystem\InteractiveEntity.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Input\Butten.cs" />
@@ -67,23 +68,22 @@
     <Compile Include="Options\MoveComponent.cs" />
     <Compile Include="Options\OptionFoundation.cs" />
     <Compile Include="Options\WorkComponent.cs" />
-    <Compile Include="TileEntitys\Resources\BasicCristalcs.cs" />
+    <Compile Include="TileEntitys\Resources\BasicCristal.cs" />
     <Compile Include="TileEntitys\Resources\ResourceBase.cs" />
     <Compile Include="TileEntitys\Units\Worker.cs" />
+    <Compile Include="Tile\TileEntity.cs" />
     <Compile Include="Uitily\Hexagon.cs" />
     <Compile Include="Input\Input.cs" />
     <Compile Include="Options\Option.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rendering\DrawComponent.cs" />
-    <Compile Include="Rendering\DrawManager.cs" />
     <Compile Include="Rendering\Layer.cs" />
     <Compile Include="Rendering\RectangleShape.cs" />
     <Compile Include="Rendering\TextComponent.cs" />
-    <Compile Include="Tile.cs" />
+    <Compile Include="Tile\Tile.cs" />
     <Compile Include="UI\Caret.cs" />
     <Compile Include="UI\InWorldList.cs" />
-    <Compile Include="Unit.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -144,7 +144,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="TileEntitys\Buildings\" />
-    <Folder Include="Tile\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

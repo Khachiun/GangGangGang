@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace GangGang
 {
-    public class InWorldList : InteractivEntity
+    public class InWorldList : InteractiveEntity
     {
         static RectangleShape backgrund;
         static Square buttenSize;
@@ -18,12 +18,12 @@ namespace GangGang
         {
             buttenSize = new Square(200, 50);
             backgrund = new RectangleShape(new Square(200, 70), new Color(60, 60, 60, 100).ToTexture());
-            DrawManager.Register.Add("bg", backgrund);
+            DrawComponent.Regiser("bg", backgrund);
             RectangleShape shape = new RectangleShape(buttenSize, new Color(80, 80, 80, 100).ToTexture());
-            DrawManager.Register.Add("btn", shape);
+            DrawComponent.Regiser("btn", shape);
 
             RectangleShape selectShape = new RectangleShape(buttenSize, new Color(150, 150, 255, 150).ToTexture());
-            DrawManager.Register.Add("btnSelect", selectShape);
+            DrawComponent.Regiser("btnSelect", selectShape);
 
 
         }
@@ -75,6 +75,7 @@ namespace GangGang
                 Adopt(butten);
             }
 
+            options[selected].Display = true;
 
         }
         public override void Update()

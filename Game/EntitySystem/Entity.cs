@@ -25,7 +25,7 @@ namespace GangGang
         }
         public virtual Vector2f Position { get { return Parent?.Position + Offset ?? Offset; } }
 
-        
+
         //public Vector2f Position { get { return Parent != null ? Parent.Position + Offset : Offset; } }
 
         protected virtual void OffsetChanged()
@@ -157,29 +157,27 @@ namespace GangGang
                 }
         }
 
-        public List<T> FetchChildren<T>(string tag) where T : Entity
+        public void FetchChildren<T>(ref List<T> list, string tag) where T : Entity
         {
-            List<T> list = new List<T>();
-            foreach (Entity child in Children)
-            {
-                if (child is T && child.Tag == GetTag(tag))
+            if (Children != null)
+                foreach (Entity child in Children)
                 {
-                    list.Add(child as T);
+                    if (child is T && child.Tag == GetTag(tag))
+                    {
+                        list.Add(child as T);
+                    }
                 }
-            }
-            return list;
         }
-        public List<T> FetchChildren<T>() where T : Entity
+        public void FetchChildren<T>(ref List<T> list) where T : Entity
         {
-            List<T> list = new List<T>();
-            foreach (Entity child in Children)
-            {
-                if (child is T)
+            if (Children != null)
+                foreach (Entity child in Children)
                 {
-                    list.Add(child as T);
+                    if (child is T)
+                    {
+                        list.Add(child as T);
+                    }
                 }
-            }
-            return list;
         }
 
         public T GetChild<T>(string tag) where T : Entity
@@ -235,78 +233,6 @@ namespace GangGang
             return -1;
         }
 
-    }
-
-
-    public class InteractivEntity : Entity
-    {
-        public CollitionComponent Collider { get; protected set; }
-        public int Priority { get; set; } = 0;
-
-        /// <summary>
-        /// Use this contructor only if you know all recuiermants needed
-        /// </summary>
-        public InteractivEntity()
-        {
-
-        }
-        public InteractivEntity(CollitionComponent collitionComponent, int priority = 0)
-        {
-            Collider = collitionComponent;
-            Adopt(collitionComponent);
-            this.Priority = priority;
-        }
-        public virtual void Click(bool yes) { }
-        public virtual void Hover(bool yes) { }
-    }
-
-    public class ExternalInteractiveEntity : InteractivEntity
-    {
-        private Action<bool> click;
-        private Action<bool> hover;
-
-        public Action<bool> ClickDel
-        {
-            get
-            {
-                return click;
-            }
-
-            set
-            {
-                this.click = value;
-            }
-        }
-
-        public Action<bool> HoverDel
-        {
-            get
-            {
-                return hover;
-            }
-
-            set
-            {
-                this.hover = value;
-            }
-        }
-        public ExternalInteractiveEntity(CollitionComponent collitionComponent, int priority = 0) : base(collitionComponent, priority)
-        {
-
-        }
-        public ExternalInteractiveEntity(Action<bool> click, Action<bool> hover, CollitionComponent collitionComponent, int priority = 0) : base(collitionComponent, priority)
-        {
-            this.click = click;
-            this.hover = hover;
-        }
-        public override void Hover(bool yes)
-        {
-            hover?.Invoke(yes);
-        }
-        public override void Click(bool yes)
-        {
-            click?.Invoke(yes);
-        }
     }
 
 }

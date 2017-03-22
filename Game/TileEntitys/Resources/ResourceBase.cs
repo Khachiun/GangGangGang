@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace GangGang
 {
-    class ResourceBase
+    abstract class ResourceBase : TileEntity
     {
+        public ResourceBase(int x, int y) : base(x, y, new CircleCollition(Hexagon.HEX_R)) { }
+        public override void NextTurn() { }
+        public virtual void Interacte(TileEntity entity) { }
     }
 }

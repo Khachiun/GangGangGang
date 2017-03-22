@@ -135,7 +135,7 @@ namespace GangGang
                     c = new Color(255, 200, 200);
                 if (item.Item3 is DrawComponent)
                     c = Color.Red;
-                if (item.Item3 is InteractivEntity)
+                if (item.Item3 is InteractiveEntity)
                     c = new Color(200, 0, 255);
                 if (item.Item3 is Tile)
                     c = new Color(50, 255, 50);

@@ -12,7 +12,7 @@ namespace GangGang
             ConvexShape hexagon = Hexagon.GenHexagon();
             hexagon.FillColor = Color.Blue.SetAlpha(100);
             hexagon.OutlineThickness = 1;
-            DrawManager.Register.Add("MoveHexagon", hexagon);
+            DrawComponent.Regiser("MoveHexagon", hexagon);
 
             pattern = new List<Vector2i>() {
                 new Vector2i(-1, -1),

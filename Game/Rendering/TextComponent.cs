@@ -19,14 +19,11 @@ namespace GangGang
         private static int Count { get; set; }
         public TextComponent(string text, int layer) : base("", layer)
         {
-            base.ID = "TextComponent" + Game.randome.Next();
+            base.ID = CreateRandomID();
             this.text = DefaultText.GenerateText(text);
-            DrawManager.Register.Add(ID, this.text);
+            base.singleUseDrawble = true;
+            Regiser(this.ID, this.text);
         }
-
-        ~TextComponent()
-        {
-            DrawManager.Register.Remove(this.ID);
-        }
+        
     }
 }

@@ -37,8 +37,10 @@ namespace GangGang
                 //draw.Offset = Hexagon.OFFSET_TO_CENTER;
                 OptionObject e = new OptionObject(item.X, item.Y, draw, OnSelectedClick, this);
                 e.Offset -= Position;
+                e.Show = false;
                 Adopt(e);
             }
+            
         }
         public override void Activate()
         {
@@ -52,7 +54,9 @@ namespace GangGang
         }
         public override void CleanUp()
         {
-            foreach (Entity child in FetchChildren<OptionObject>())
+            List<OptionObject> list = new List<OptionObject>();
+            FetchChildren<OptionObject>(ref list);
+            foreach (Entity child in list)
             {
                 Reject(child);
             }
