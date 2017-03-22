@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace GangGang
 {
-    class Tile : Entity
+  
+    public class Tile : Entity
     {
 
         static Tile()
@@ -49,7 +50,7 @@ namespace GangGang
 
     }
 
-    class TileMap : Entity
+    public class TileMap : Entity
     {
 
         Tile[,] array;
@@ -104,13 +105,15 @@ namespace GangGang
         }
     }
 
-    abstract class TileEntity : InteractivEntity
+    public abstract class TileEntity : InteractivEntity
     {
         public TileEntity(int x, int y, CollitionComponent collition) : base(collition)
         {
             collition.Offset += Hexagon.OFFSET_TO_CENTER;
             this.X = x;
             this.Y = y;
+
+            
 
             Priority = GangGang.Priority.UNIT_BASE;
         }
@@ -149,7 +152,7 @@ namespace GangGang
                     this.FetchAll<Option>(ref options);
                     if (options.Count > 0)
                     {
-                        List list = new List(options);
+                        InWorldList list = new InWorldList(options);
                         this.Adopt(list);
                         Console.WriteLine(yes);
                     }

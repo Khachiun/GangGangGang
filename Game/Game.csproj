@@ -7,7 +7,7 @@
     <ProjectGuid>{885C96A7-D026-4CBC-AF64-13D71481A8D4}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Game</RootNamespace>
+    <RootNamespace>GangGang</RootNamespace>
     <AssemblyName>Game</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -55,16 +55,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Collition.cs" />
-    <Compile Include="Drawable.cs" />
-    <Compile Include="Entity.cs" />
+    <Compile Include="Collition\CircleCollition.cs" />
+    <Compile Include="Collition\CollitionComponent.cs" />
+    <Compile Include="Collition\Priority.cs" />
+    <Compile Include="Collition\RectangleCollition.cs" />
+    <Compile Include="EntitySystem\Entity.cs" />
+    <Compile Include="EntitySystem\InteractiveEntity.cs" />
     <Compile Include="Game.cs" />
-    <Compile Include="Hexagon.cs" />
-    <Compile Include="Input.cs" />
-    <Compile Include="Option.cs" />
+    <Compile Include="Input\Butten.cs" />
+    <Compile Include="Input\Controller.cs" />
+    <Compile Include="Options\MoveComponent.cs" />
+    <Compile Include="Options\OptionFoundation.cs" />
+    <Compile Include="Options\WorkComponent.cs" />
+    <Compile Include="TileEntitys\Resources\BasicCristalcs.cs" />
+    <Compile Include="TileEntitys\Resources\ResourceBase.cs" />
+    <Compile Include="TileEntitys\Units\Worker.cs" />
+    <Compile Include="Uitily\Hexagon.cs" />
+    <Compile Include="Input\Input.cs" />
+    <Compile Include="Options\Option.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rendering\DrawComponent.cs" />
+    <Compile Include="Rendering\DrawManager.cs" />
+    <Compile Include="Rendering\Layer.cs" />
+    <Compile Include="Rendering\RectangleShape.cs" />
+    <Compile Include="Rendering\TextComponent.cs" />
     <Compile Include="Tile.cs" />
+    <Compile Include="UI\Caret.cs" />
+    <Compile Include="UI\InWorldList.cs" />
     <Compile Include="Unit.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -123,6 +141,10 @@
       <Project>{eb9cd57f-93e4-4adc-9a34-8bb07946bfb3}</Project>
       <Name>Czaplicki.Universal</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="TileEntitys\Buildings\" />
+    <Folder Include="Tile\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

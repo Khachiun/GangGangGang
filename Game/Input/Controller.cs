@@ -1,6 +1,4 @@
-﻿using Czaplicki.SFMLE;
-using Czaplicki.SFMLE.Extentions;
-using SFML.System;
+﻿using SFML.System;
 using SFML.Window;
 using System;
 using System.Collections.Generic;
@@ -10,35 +8,6 @@ using System.Threading.Tasks;
 
 namespace GangGang
 {
-    static class Input
-    {
-        public static Vector2f WorldMouse;
-        public static Vector2f UIMouse;
-        public static MouseState MouseState;
-        public static KeyboardState KeyBoard;
-
-        public static float Angle => Controller.angel;
-        public static Vector2i Diraction => Controller.GridDiraction;
-
-
-        public static Controller Controller { get; private set; }
-
-        static Input()
-        {
-            Controller = Controller.controllers[0];
-        }
-
-    }
-    public enum Butten
-    {
-        A, B, X, Y,
-        LEFT_TRIGGER, RIGHT_TRIGGER,
-        BACK, START,
-        LEFT_STICK, RIGHT_STICK,
-        DPAD_LEFT, DPAD_RIGHT,
-        DPAD_UP, DEPAD_DOWN,
-        BUTTEN_COUNT
-    }
     public class Controller
     {
         static Vector2i[] Diractions { get; }
@@ -67,6 +36,8 @@ namespace GangGang
         private bool[] LasteIteration = new bool[(int)Butten.BUTTEN_COUNT];
         private bool[] EventSate = new bool[(int)Butten.BUTTEN_COUNT];
         private Vector2f dpad = new Vector2f();
+
+
 
 
         private Controller(uint iD)
@@ -111,10 +82,15 @@ namespace GangGang
                         controller.LasteIteration[i] = false;
                     }
                 }
-                controller.angel = (float)(Math.Atan2(-controllers[0].LeftStick.Y, (-controllers[0].LeftStick.X)) * (180 / Math.PI) +180);
+                controller.angel = (float)(Math.Atan2(-controllers[0].LeftStick.Y, (-controllers[0].LeftStick.X)) * (180 / Math.PI) + 180);
                 controller.GridDiraction = Controller.Diractions[(int)(controller.angel / 60)];
             }
 
+
+            foreach (Controller controller in controllers.Values)
+            {
+
+            }
 
 
             //debug
@@ -215,7 +191,7 @@ namespace GangGang
             }
         }
 
-        public static event EventHandler<ControllerConnectEventArgs> ControllerConnectEvent;
+        //public static event EventHandler<ControllerConnectEventArgs> ControllerConnectEvent;
 
         private static void Window_JoystickButtonReleased(object sender, JoystickButtonEventArgs e)
         {
@@ -259,5 +235,4 @@ namespace GangGang
         public bool connected { get; private set; }
         public Controller controller { get; private set; }
     }
-
 }

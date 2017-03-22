@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace GangGang
 {
-    class Entity : Chain<Entity>
+    public class Entity : Chain<Entity>
     {
         private int Tag { get; set; } = -1;
         public bool Enable { get; set; } = true;
@@ -238,7 +238,7 @@ namespace GangGang
     }
 
 
-    class InteractivEntity : Entity
+    public class InteractivEntity : Entity
     {
         public CollitionComponent Collider { get; protected set; }
         public int Priority { get; set; } = 0;
@@ -260,7 +260,7 @@ namespace GangGang
         public virtual void Hover(bool yes) { }
     }
 
-    class ExternalInteractiveEntity : InteractivEntity
+    public class ExternalInteractiveEntity : InteractivEntity
     {
         private Action<bool> click;
         private Action<bool> hover;

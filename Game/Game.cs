@@ -9,7 +9,7 @@ using Czaplicki.Universal.Chain;
 
 namespace GangGang
 {
-    class Player : Chain<Player>
+    public class Player : Chain<Player>
     {
         public int ID { get; set; }
         public int Capacity { get; set; }
@@ -18,107 +18,9 @@ namespace GangGang
 
 
 
-    class Caret : Entity
-    {
-
-        static Caret()
-        {
-            ConvexShape shape = Hexagon.GenHexagon();
-            shape.FillColor = Color.Yellow.SetAlpha(150);
-            DrawManager.Register.Add("Caret", shape);
-        }
-
-        private Vector2i gridPos = new Vector2i();
-
-        private DrawComponent drawComponent;
-
-        public Caret()
-        {
-            drawComponent = new DrawComponent("Caret", Layer.UNIT_BASE - 1);
-            Adopt(drawComponent);
-
-        }
-        public override void Update()
-        {
-            #region InteractiveEntitys
-
-            Game.Out += gridPos + "\n";
-
-            List<InteractivEntity> entitys = new List<InteractivEntity>();
-            Parent.FetchAllActive<InteractivEntity>(ref entitys);
-            entitys.Sort((left, right) => right.Priority - left.Priority);
 
 
-            bool clickedThisIteration = false;
-            bool clicked;
-            bool collided;
-            foreach (var entity in entitys)
-            {
-                Game.Out += $"Type : {entity.GetType()}, Parent : {entity.Parent?.ToString() ?? "null"}\n";
-
-                if (Game.UseController)
-                {
-                    clicked = Input.Controller[Butten.A] == 2;
-                    collided = entity.Collider.Collide(Hexagon.TRANSLATE(gridPos) + Hexagon.OFFSET_TO_CENTER);
-
-                }
-                else
-                {
-                    clicked = Input.MouseState.Left == 2;
-                    collided = entity.Collider.Collide(Input.WorldMouse);
-                }
-
-                entity.Hover(collided);
-                if (clicked)
-                {
-                    bool click = collided && !clickedThisIteration;
-                    entity.Click(click);
-                    Console.WriteLine($"GETS CLICKED = Type : {entity.GetType()}, Parent : {entity.Parent?.ToString() ?? "null"} ");
-                    if (click)
-                    {
-                        clickedThisIteration = true;
-                    }
-                }
-            }
-
-            #endregion
-
-            #region Mouse Movement and Visualization
-            if (Game.UseController)
-            {
-                if (Input.Controller[Butten.B] == 2 || Input.Controller[Butten.LEFT_STICK] == 2) // chache to timer thining
-                {
-
-                    gridPos += -Input.Diraction;
-                    drawComponent.Offset += Hexagon.TRANSLATE(gridPos.X, gridPos.Y) - drawComponent.Position;
-                    //drawComponent.Offset += drawComponent.Position - Hexagon.TRANSLATE(Input.Diraction.X, Input.Diraction.Y);
-
-                }
-            }
-            else
-            {
-                List<CollitionComponent> tileCols = new List<CollitionComponent>();
-                Parent.FetchAllActive<CollitionComponent>(ref tileCols, "Tile");
-                foreach (CollitionComponent item in tileCols)
-                {
-                    if (item.Collide(Input.WorldMouse))
-                    {
-                        drawComponent.Offset += item.Parent.Position - drawComponent.Position;
-                        Tile tile = item.Parent as Tile;
-                        gridPos = new Vector2i(tile.X, tile.Y);
-                        break;
-                    }
-                }
-            }
-            #endregion
-
-            base.Update();
-        }
-
-    }
-
-
-    class Game : Entity
+    public class Game : Entity
     {
         public static bool UseController { get; set; }
         public static Player CurrrentPlayer { get; set; }
@@ -283,8 +185,8 @@ namespace GangGang
             if (debugEnabled)
             {
 
-                List<RectangelCollition> recs = new List<RectangelCollition>();
-                FetchAllActive<RectangelCollition>(ref recs);
+                List<RectangleCollition> recs = new List<RectangleCollition>();
+                FetchAllActive<RectangleCollition>(ref recs);
                 List<Vertex> verts = new List<Vertex>();
                 foreach (var item in recs)
                 {
@@ -324,185 +226,7 @@ namespace GangGang
     }
 
 
-    class List : InteractivEntity
-    {
-        static RectangelShape backgrund;
-        static Square buttenSize;
-        static List()
-        {
-            buttenSize = new Square(200, 50);
-            backgrund = new RectangelShape(new Square(200, 70), new Color(60, 60, 60, 100).ToTexture());
-            DrawManager.Register.Add("bg", backgrund);
-            RectangelShape shape = new RectangelShape(buttenSize, new Color(80, 80, 80, 100).ToTexture());
-            DrawManager.Register.Add("btn", shape);
-
-            RectangelShape selectShape = new RectangelShape(buttenSize, new Color(150, 150, 255, 150).ToTexture());
-            DrawManager.Register.Add("btnSelect", selectShape);
-
-
-        }
-
-        List<Option> options;
-        CollitionComponent[] buttens;
-        DrawComponent selectingGrafik;
-
-        int _selected;
-        int selected
-        {
-            get { return _selected; }
-            set
-            {
-                _selected = value;
-                selectingGrafik.Offset = new Vector2f(10, (buttenSize.Size.Y + 10) * _selected + 10);
-            }
-        }
-
-        public List(List<Option> options)
-        {
-            this.Priority = GangGang.Priority.UI_BASE;
-
-            this.options = options;
-            Adopt(new DrawComponent("bg", Layer.UI_BASE));
-
-            selectingGrafik = new DrawComponent("btnSelect", Layer.UI_BASE + 3);
-            selected = 0;
-            options[selected].Display = true;
-            Adopt(selectingGrafik);
-
-            Square backgruond = new Square(0, 0, 220, (buttenSize.Size.Y + 10) * options.Count + 10);
-            backgrund.Rectangel = backgruond;
-
-            RectangelCollition col = new RectangelCollition(backgruond, new Vector2f());
-            Adopt(col);
-            Collider = col;
-
-
-            buttens = new CollitionComponent[options.Count];
-            for (int i = 0; i < options.Count; i++)
-            {
-                options[i].Calculate();
-                CollitionComponent butten = new RectangelCollition(buttenSize, new Vector2f());
-                butten.Adopt(new DrawComponent("btn", Layer.UI_BASE + 1));
-                butten.Adopt(new TextComponent(options[i].UiName, Layer.UI_BASE + 2));
-                butten.Offset = new Vector2f(10, (buttenSize.Size.Y + 10) * i + 10);
-                buttens[i] = butten;
-                Adopt(butten);
-            }
-
-
-        }
-        public override void Update()
-        {
-            if (Game.UseController)
-            {
-                if (Input.Controller[Butten.DPAD_UP] == 2)
-                {
-                    options[selected].Display = false;
-                    selected--;
-
-                    if (selected <= -1)
-                    {
-                        selected = options.Count - 1;
-                    }
-
-                    options[selected].Display = true;
-
-                }
-                if (Input.Controller[Butten.DEPAD_DOWN] == 2)
-                {
-                    options[selected].Display = false;
-                    selected++;
-
-                    if (selected >= options.Count)
-                    {
-                        selected = 0;
-                    }
-
-                    options[selected].Display = true;
-                }
-            }
-
-            base.Update();
-        }
-
-        public override void Click(bool yes)
-        {
-            if (yes)
-            {
-                if (Game.UseController)
-                {
-                    //options[selected].Activate();
-                    //Parent.Reject(this);
-                    ////options[selected].Display = false;
-
-                    for (int i = 0; i < options.Count; i++)
-                    {
-                        if (i == selected)
-                        {
-                            options[i].Activate();
-                            Parent.Reject(this);
-                            //options[selected].Display = false;
-
-                        }
-                        else
-                        {
-                            options[i].CleanUp();
-                        }
-                    }
-
-                }
-                else
-                {
-                    for (int i = 0; i < options.Count; i++)
-                    {
-                        if (buttens[i].Collide(Input.WorldMouse))
-                        {
-                            options[i].Activate();
-                            Parent.Reject(this);
-                            //options[selected].Display = false;
-
-                        }
-                        else
-                        {
-                            options[i].CleanUp();
-                        }
-                    }
-                }
-            }
-            else
-            {
-                for (int i = 0; i < options.Count; i++)
-                {
-                    options[i].CleanUp();
-                }
-                Parent.Reject(this);
-                options[selected].Display = false;
-
-            }
-        }
-
-        public override void Hover(bool yes)
-        {
-            if (!Game.UseController)
-            {
-
-                for (int i = 0; i < options.Count; i++)
-                {
-                    if (buttens[i].Collide(Input.WorldMouse))
-                    {
-                        options[i].Display = true;
-                        selected = i;
-                    }
-                    else
-                    {
-                        options[i].Display = false;
-                    }
-                }
-            }
-        }
-
-
-    }
+    
 
 
     
