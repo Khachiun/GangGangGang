@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GangGang
 {
-    public abstract class TileEntity : InteractiveEntity
+    public abstract class TileEntity : InteractiveEntity, IUseReadTurns
     {
         TextComponent text;
 
@@ -40,6 +40,10 @@ namespace GangGang
         public virtual void RetrivedDamage(int Damage, Entity sender)
         {
             Heath -= Damage;
+            if (health < 1)
+            {
+                Destryed(sender);
+            }
         }
 
         public virtual void Destryed(Entity sender) {
@@ -49,7 +53,7 @@ namespace GangGang
         }
 
         //public virtual void CleanUp() { }
-        public virtual void NextTurn()
+        public virtual void OnNewTurn()
         {
             Heath += Regen;
             if (Heath > MaxHealth)
@@ -66,7 +70,7 @@ namespace GangGang
                 {
 
                     List<Option> options = new List<Option>();
-                    this.FetchAll<Option>(ref options);
+                    this.FetchAllActive<Option>(ref options);
                     if (options.Count > 0)
                     {
                         InWorldList list = new InWorldList(options);
@@ -77,6 +81,11 @@ namespace GangGang
                 }
             }
         }
+
+        //public void OnNewTurn()
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 
 }

@@ -21,6 +21,7 @@ namespace Czaplicki.SFMLE
                 PixelSize = new Text("", Font, value).CharacterSize;
                 SizeChangedEvent?.Invoke(null, new EventArgs());
                 drawObject = GenerateText("", new Vector2f());
+             
                 
             }
         }
@@ -28,6 +29,7 @@ namespace Czaplicki.SFMLE
         public static Color Color { get; set; }
 
         private static Text drawObject;
+        
 
         public static void Display(RenderTarget target, object text, RenderStates renderstates)
         {

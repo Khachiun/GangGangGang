@@ -33,8 +33,13 @@ namespace GangGang
 
         private int turnCount;
 
+        private Entity UIElements = new Entity();
+
         public void Init(CRenderWindow window)
         {
+
+
+
 
             players = new Player();
             players.InsertElement(new Player());
@@ -143,6 +148,12 @@ namespace GangGang
             }
             else
             {
+                if (kbs[Key.Num2] == 2)
+                {
+                    Console.WriteLine("Next turn");
+                    NextTurn();
+                }
+
                 speed = kbs[Key.LShift] > 0 ? 10 : 4;
                 if (kbs[Key.A] > 0)
                     velocity += new Vector2f(-1, 0);
@@ -205,12 +216,31 @@ namespace GangGang
                 }
             }
         }
+
+
+        private Text uiText = DefaultText.GenerateText("");
+        private RenderArgs args = new RenderArgs();
+
+        private Vector2f idpos = new Vector2f();
+        private Vector2f cristalpos = new Vector2f(0, 70);
         public void UI_Draw(CRenderWindow window)
         {
-            DefaultText.Display(window, CurrrentPlayer.ID, RenderStates.Default);
-            DefaultText.Display(window, CurrrentPlayer.Cristals, new RenderArgs().Translate(new Vector2f(0, 70)));
-            if (debugEnabled)
-                DefaultText.Display(window, Out, RenderStates.Default);
+            DefaultText.Size = 32;
+
+            uiText.Position = idpos;
+            uiText.DisplayedString = CurrrentPlayer.ID.ToString();
+            window.Draw(uiText, args);
+
+            uiText.Position = cristalpos;
+            uiText.DisplayedString = CurrrentPlayer.Cristals.ToString();
+            window.Draw(uiText, args);
+            
+
+            //uiText.DisplayedString = CurrrentPlayer.ID.ToString();
+            //DefaultText.Display(window, CurrrentPlayer.ID, RenderStates.Default);
+            //DefaultText.Display(window, CurrrentPlayer.Cristals, new RenderArgs().Translate(new Vector2f(0, 70)));
+            ////if (debugEnabled)
+            //    DefaultText.Display(window, Out, RenderStates.Default);
         }
         private void NextTurn()
         {
@@ -218,11 +248,11 @@ namespace GangGang
             players = players.GetNext();
             CurrrentPlayer = players;
 
-            List<TileEntity> list = new List<TileEntity>();
-            FetchAllActive<TileEntity>(ref list);
+            List<IUseReadTurns> list = new List<IUseReadTurns>();
+            FetchAll<IUseReadTurns>(ref list);
             foreach (var item in list)
             {
-                item.NextTurn();
+                item.OnNewTurn();
             }
         }
     }

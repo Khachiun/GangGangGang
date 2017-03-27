@@ -37,7 +37,7 @@ namespace GangGang
             TileMap map = Parent.Parent as TileMap;
             map.RemoveEntity(entity);
         }
-        public override void NextTurn()
+        public override void OnNewTurn()
         {
             if (useCount >= ueses)
             {
@@ -52,7 +52,7 @@ namespace GangGang
                 entity.Owner.Cristals += amount;
                 useCount++;
             }
-            base.NextTurn();
+            base.OnNewTurn();
         }
     }
 }

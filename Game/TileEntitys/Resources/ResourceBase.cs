@@ -9,7 +9,7 @@ namespace GangGang
     abstract class ResourceBase : TileEntity
     {
         public ResourceBase(int x, int y) : base(x, y, new CircleCollition(Hexagon.HEX_R)) { }
-        public override void NextTurn() { }
+        public override void OnNewTurn() { }
         public virtual void Interacte(TileEntity entity) { }
     }
 }

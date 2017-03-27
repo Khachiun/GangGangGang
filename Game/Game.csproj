@@ -62,6 +62,7 @@
     <Compile Include="EntitySystem\Entity.cs" />
     <Compile Include="EntitySystem\ExternalInteractiveEntity.cs" />
     <Compile Include="EntitySystem\InteractiveEntity.cs" />
+    <Compile Include="EntitySystem\ITrunUse.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Input\Butten.cs" />
     <Compile Include="Input\Controller.cs" />

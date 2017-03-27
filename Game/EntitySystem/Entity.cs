@@ -99,14 +99,14 @@ namespace GangGang
             }
         }
 
-        public void FetchAllActive<T>(ref List<T> list, string tag) where T : Entity
+        public void FetchAllActive<T>(ref List<T> list, string tag) where T : class
         {
             if (Children != null)
                 foreach (Entity child in Children)
                 {
                     if (child.Enable)
                     {
-                        if (GetTag(tag) == child.Tag && child is T) // tag dont work
+                        if (GetTag(tag) == child.Tag && child is T) 
                         {
                             list.Add(child as T);
                         }
@@ -114,7 +114,7 @@ namespace GangGang
                     }
                 }
         }
-        public void FetchAllActive<T>(ref List<T> list) where T : Entity
+        public void FetchAllActive<T>(ref List<T> list) where T : class
         {
             if (Children != null)
                 foreach (Entity child in Children)
@@ -132,7 +132,7 @@ namespace GangGang
 
         //use ref list insted af return value
 
-        public void FetchAll<T>(ref List<T> list, string tag) where T : Entity
+        public void FetchAll<T>(ref List<T> list, string tag) where T : class
         {
             if (Children != null)
                 foreach (Entity child in Children)
@@ -144,7 +144,7 @@ namespace GangGang
                     child.FetchAll<T>(ref list, tag);
                 }
         }
-        public void FetchAll<T>(ref List<T> list) where T : Entity
+        public void FetchAll<T>(ref List<T> list) where T : class
         {
             if (Children != null)
                 foreach (Entity child in Children)
@@ -157,7 +157,7 @@ namespace GangGang
                 }
         }
 
-        public void FetchChildren<T>(ref List<T> list, string tag) where T : Entity
+        public void FetchChildren<T>(ref List<T> list, string tag) where T : class
         {
             if (Children != null)
                 foreach (Entity child in Children)
@@ -168,7 +168,7 @@ namespace GangGang
                     }
                 }
         }
-        public void FetchChildren<T>(ref List<T> list) where T : Entity
+        public void FetchChildren<T>(ref List<T> list) where T : class
         {
             if (Children != null)
                 foreach (Entity child in Children)
@@ -180,7 +180,7 @@ namespace GangGang
                 }
         }
 
-        public T GetChild<T>(string tag) where T : Entity
+        public T GetChild<T>(string tag) where T : class
         {
             foreach (Entity child in Children)
             {
@@ -191,7 +191,7 @@ namespace GangGang
             }
             return null;
         }
-        public T GetChild<T>() where T : Entity
+        public T GetChild<T>() where T : class
         {
             foreach (Entity child in Children)
             {

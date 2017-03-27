@@ -2,12 +2,13 @@
 using SFML.Graphics;
 using SFML.System;
 using System.Collections.Generic;
+using System;
 
 namespace GangGang
 {
 
 
-    public abstract class Option : Entity
+    public abstract class Option : Entity, IUseReadTurns
     {
         public class OptionObject : Entity
         {
@@ -66,6 +67,9 @@ namespace GangGang
 
         }
 
+        public virtual void OnNewTurn()
+        {
 
+        }
     }
 }

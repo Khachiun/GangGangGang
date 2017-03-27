@@ -10,10 +10,19 @@ namespace GangGang
     public abstract class OptionFoundation : Option
     {
         private DrawComponent grafic;
+        private int maxUsePerTrun;
+        private int usedThisTurn = 0;
 
-        protected OptionFoundation(DrawComponent draw)
+        protected OptionFoundation(DrawComponent draw, int usePerTurn = 1)
         {
             grafic = draw;
+            maxUsePerTrun = usedThisTurn;
+        }
+        public override void OnNewTurn()
+        {
+            this.Enable = true;
+            usedThisTurn = 0;
+            base.OnNewTurn();
         }
         public override bool Display
         {
@@ -27,21 +36,41 @@ namespace GangGang
                 }
             }
         }
+        /// <summary>
+        /// When menue is opend
+        /// </summary>
         public override void Calculate()
         {
             TileMap map = Parent.Parent.Parent as TileMap;
             TileEntity parent = Parent as TileEntity;
+
+
+
             foreach (var item in GetAvalibleSpots(map, parent))
             {
                 DrawComponent draw = grafic.Clone();
                 //draw.Offset = Hexagon.OFFSET_TO_CENTER;
-                OptionObject e = new OptionObject(item.X, item.Y, draw, OnSelectedClick, this);
+
+                OptionObjectDelegate del = (m, l) =>
+               {
+                   //if (usedThisTurn <= maxUsePerTrun)
+                   //{
+                   //    OnSelectedClick(m, l);
+                   //}
+                   usedThisTurn++;
+                   this.Enable = false;
+               };
+
+                OptionObject e = new OptionObject(item.X, item.Y, draw, del + OnSelectedClick , this);
                 e.Offset -= Position;
                 e.Show = false;
                 Adopt(e);
             }
             
         }
+        /// <summary>
+        /// when butten is chossen in the menu
+        /// </summary>
         public override void Activate()
         {
             Display = true;
@@ -52,6 +81,7 @@ namespace GangGang
                 item.oneClick.Enable = true;
             }
         }
+        
         public override void CleanUp()
         {
             List<OptionObject> list = new List<OptionObject>();
