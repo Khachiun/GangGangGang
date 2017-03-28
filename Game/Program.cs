@@ -62,7 +62,7 @@ namespace GangGang
             Input.MouseState = window.MouseState;
 
             //kör spelets initilze funktion
-            game.Init(window);
+            game.Init(window,2);
 
 
             Color backgroundColor = new Color(70, 70, 70);

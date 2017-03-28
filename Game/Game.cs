@@ -9,11 +9,21 @@ using Czaplicki.Universal.Chain;
 
 namespace GangGang
 {
-    public class Player : Chain<Player>
+    public class Player
     {
         public int ID { get; set; }
         public int Capacity { get; set; }
         public int Cristals { get; set; }
+
+        public static Color[] colors;
+        static Player()
+        {
+            colors = new Color[3];
+            colors[0] = Color.White;
+            colors[1] = Color.Red;
+            colors[2] = Color.Blue;
+
+        }
     }
 
     public class Game : Entity
@@ -22,11 +32,13 @@ namespace GangGang
         public static Player CurrrentPlayer { get; set; }
         public static string Out = "";
 
+        public static int playerCount;
+
         public static Random randome = new Random();
-        
+
         public View Camera { get; set; }
 
-        Player players;
+        Player[] players;
 
         private CircleShape shape;
         private bool debugEnabled = false;
@@ -35,18 +47,16 @@ namespace GangGang
 
         private Entity UIElements = new Entity();
 
-        public void Init(CRenderWindow window)
+        public void Init(CRenderWindow window, int playerCount)
         {
 
-
-
-
-            players = new Player();
-            players.InsertElement(new Player());
-            players.ID = 0;
-            players.Cristals = 100;
-            players.GetNext().ID = 1;
-            CurrrentPlayer = players;
+            Game.playerCount = playerCount;
+            players = new Player[playerCount];
+            for (int i = 0; i < playerCount; i++)
+            {
+                players[i] = new Player() { ID = i };
+            }
+            CurrrentPlayer = players[0];
 
 
 
@@ -58,18 +68,19 @@ namespace GangGang
             TileMap tilemap = new TileMap(new Vector2i(10, 10));
             Adopt(tilemap);
 
-            Worker worker = new Worker(2, 1);
-            worker.Owner = players;
+            Worker worker = new Worker(2, 1, players[0]);
+            //worker.Owner = players;
             tilemap.AddTileEntity(worker);
 
-            Worker worker2 = new Worker(16, 8);
-            worker2.Owner = players.GetNext();
+            Worker worker2 = new Worker(16, 8, players[1]);
+            //worker2.Owner = players.GetNext();
             tilemap.AddTileEntity(worker2);
 
             BasicCristal r = new BasicCristal(9, 2);
             tilemap.AddTileEntity(r);
 
             Building b = new Building(9, 7);
+            //b.Owner = players[0];
             tilemap.AddTileEntity(b);
 
             shape = new CircleShape();
@@ -99,7 +110,7 @@ namespace GangGang
                 else
                 {
                     pspeed *= 10;
-                    
+
                 }
                 if (Input.Controller[Butten.RIGHT_STICK] > 0)
                 {
@@ -234,7 +245,7 @@ namespace GangGang
             uiText.Position = cristalpos;
             uiText.DisplayedString = CurrrentPlayer.Cristals.ToString();
             window.Draw(uiText, args);
-            
+
 
             //uiText.DisplayedString = CurrrentPlayer.ID.ToString();
             //DefaultText.Display(window, CurrrentPlayer.ID, RenderStates.Default);
@@ -245,8 +256,8 @@ namespace GangGang
         private void NextTurn()
         {
             turnCount++;
-            players = players.GetNext();
-            CurrrentPlayer = players;
+
+            CurrrentPlayer = players[(int)(turnCount / players.Length)];
 
             List<IUseReadTurns> list = new List<IUseReadTurns>();
             FetchAll<IUseReadTurns>(ref list);
@@ -258,270 +269,270 @@ namespace GangGang
     }
 
 
-    
 
 
-    
+
+
 }
-    //abstract class OneClick : InteractivEntity
-    //{
-    //    protected abstract void OnClick();
+//abstract class OneClick : InteractivEntity
+//{
+//    protected abstract void OnClick();
 
-    //    public override void Click(bool yes)
-    //    {
-    //        if (yes)
-    //        {
-    //            OnClick();
-    //        }
-    //        this.Parent.Reject(this);
-    //    }
-    //}
+//    public override void Click(bool yes)
+//    {
+//        if (yes)
+//        {
+//            OnClick();
+//        }
+//        this.Parent.Reject(this);
+//    }
+//}
 
-    //class ExternalOneClick : OneClick
-    //{
-    //    Action Del { get; set; }
-    //    public ExternalOneClick(Action del)
-    //    {
-    //        this.Del = del;
-    //    }
-    //    protected override void OnClick()
-    //    {
-    //        Del?.Invoke();
-    //    }
-    //}
-    
-
-    
-
-    //class Recuiermant
-    //{
-    //    DrawComponent Icon;
-    //    int Ammount;
-    //}
-    
-    //class MoveComponent : Option
-    //{
-    //    static MoveComponent()
-    //    {
-    //        ConvexShape hexagon = Hexagon.GenHexagon();
-    //        hexagon.FillColor = Color.Magenta.SetAlpha(100);
-    //        hexagon.OutlineThickness = 1;
-    //        DrawManager.Register.Add("MoveHexagon", hexagon);
-    //    }
-    //    private List<Vector2i> pattern = new List<Vector2i>();
-    //    public MoveComponent(List<Vector2i> pattern)
-    //    {
-    //        this.UiName = "Move";
-    //        this.pattern = pattern;
-    //        //CalculateDrawComponents(parent);
-    //    }
-    //    public override bool Display
-    //    {
-    //        set
-    //        {
-    //            //base.Display = value;
-
-    //            List<ExtenalAction> list = new List<ExtenalAction>();
-    //            FetchAll<ExtenalAction>(ref list, "MoveComp");
-    //            foreach (var item in list)
-    //            {
-    //                item.Enable = value;
-    //            }
-    //        }
-    //    }
-    //    public override void Calculate()
-    //    {
-    //        //this.Parent.Parent.Parent
-    //        //Option.TileEntity.Tile.TileMap
-
-    //        TileMap map = Parent.Parent.Parent as TileMap;
-
-    //        TileEntity tileEntity = Parent as TileEntity;
+//class ExternalOneClick : OneClick
+//{
+//    Action Del { get; set; }
+//    public ExternalOneClick(Action del)
+//    {
+//        this.Del = del;
+//    }
+//    protected override void OnClick()
+//    {
+//        Del?.Invoke();
+//    }
+//}
 
 
-    //        foreach (Vector2i spot in pattern)
-    //        {
-    //            if (true)
-    //            {
-    //                ExtenalAction entity = new ExtenalAction(spot.X, spot.Y, new DrawComponent("MoveHexagon", Layer.UNIT_BASE - 1), "MoveComp");
-    //                entity.ClickDel = () =>
-    //                {
-    //                    Vector2i gridpos = new Vector2i(tileEntity.X + spot.X, tileEntity.Y + spot.Y);
-    //                    //  map.RemoveEntity(tileEntity);
-    //                    map.MoveEntity(tileEntity, gridpos);
-    //                    Game.CurrrentPlayer.Cristals -= 10;
-    //                };
-    //                Adopt(entity);
-    //            }
-    //        }
-    //    }
-    //    public override void Activate()
-    //    {
-    //        //          base.Activate();
 
-    //        List<ExtenalAction> list = new List<ExtenalAction>();
-    //        FetchAll<ExtenalAction>(ref list);
-    //        foreach (var item in list)
-    //        {
-    //            //item.Parent.Enable = true;
-    //            item.exint.Enable = true;
-    //        }
-    //    }
 
-    //}
+//class Recuiermant
+//{
+//    DrawComponent Icon;
+//    int Ammount;
+//}
 
-    //abstract class ActionOptionComponent : Option// do komplete compy of movecomp , with abstract onClick
-    //{
+//class MoveComponent : Option
+//{
+//    static MoveComponent()
+//    {
+//        ConvexShape hexagon = Hexagon.GenHexagon();
+//        hexagon.FillColor = Color.Magenta.SetAlpha(100);
+//        hexagon.OutlineThickness = 1;
+//        DrawManager.Register.Add("MoveHexagon", hexagon);
+//    }
+//    private List<Vector2i> pattern = new List<Vector2i>();
+//    public MoveComponent(List<Vector2i> pattern)
+//    {
+//        this.UiName = "Move";
+//        this.pattern = pattern;
+//        //CalculateDrawComponents(parent);
+//    }
+//    public override bool Display
+//    {
+//        set
+//        {
+//            //base.Display = value;
 
-    //    DrawComponent visual;
-    //    public ActionOptionComponent(string name, DrawComponent visual)
-    //    {
-    //        UiName = name;
-    //        this.visual = visual;
-    //        visual.Enable = false;
-    //    }
-    //    protected abstract List<Vector2i> GetAvlaibleSpots();
-    //    // protected abstract bool IsSpotAvalible();
-    //    protected abstract void WorldInteraction();
-    //    public override void Calculate()
-    //    {
-    //        //TileMap map = Parent.Parent.Parent as TileMap;
+//            List<ExtenalAction> list = new List<ExtenalAction>();
+//            FetchAll<ExtenalAction>(ref list, "MoveComp");
+//            foreach (var item in list)
+//            {
+//                item.Enable = value;
+//            }
+//        }
+//    }
+//    public override void Calculate()
+//    {
+//        //this.Parent.Parent.Parent
+//        //Option.TileEntity.Tile.TileMap
 
-    //        foreach (var spot in GetAvlaibleSpots())
-    //        {
-    //            //TileEntity e = Parent as TileEntity;
-    //            ExtenalAction exint = new ExtenalAction(spot.X, spot.Y, visual.Clone(), UiName/*change to better tag later*/);
-    //            exint.ClickDel = WorldInteraction;
-    //            Adopt(exint);
-    //        }
-    //    }
-    //    public override void Activate()
-    //    {
-    //        //          base.Activate();
+//        TileMap map = Parent.Parent.Parent as TileMap;
 
-    //        List<ExtenalAction> list = new List<ExtenalAction>();
-    //        FetchAll<ExtenalAction>(ref list);
-    //        foreach (var item in list)
-    //        {
-    //            //item.Parent.Enable = true;
-    //            item.exint.Enable = true;
-    //        }
-    //    }
-    //    public override bool Display
-    //    {
-    //        set
-    //        {
-    //            //base.Display = value;
+//        TileEntity tileEntity = Parent as TileEntity;
 
-    //            List<ExtenalAction> list = new List<ExtenalAction>();
-    //            FetchAll<ExtenalAction>(ref list, UiName/*change to better tag later*/);
-    //            foreach (var item in list)
-    //            {
-    //                item.Enable = value;
-    //            }
-    //        }
-    //    }
 
-    //}
-    //class WorkComponent : ActionOptionComponent
-    //{
-    //    static WorkComponent()
-    //    {
-    //        ConvexShape hexagon = Hexagon.GenHexagon();
-    //        hexagon.FillColor = Color.Green.SetAlpha(100);
-    //        hexagon.OutlineThickness = 1;
-    //        DrawManager.Register.Add("WorkHexagon", hexagon);
-    //    }
+//        foreach (Vector2i spot in pattern)
+//        {
+//            if (true)
+//            {
+//                ExtenalAction entity = new ExtenalAction(spot.X, spot.Y, new DrawComponent("MoveHexagon", Layer.UNIT_BASE - 1), "MoveComp");
+//                entity.ClickDel = () =>
+//                {
+//                    Vector2i gridpos = new Vector2i(tileEntity.X + spot.X, tileEntity.Y + spot.Y);
+//                    //  map.RemoveEntity(tileEntity);
+//                    map.MoveEntity(tileEntity, gridpos);
+//                    Game.CurrrentPlayer.Cristals -= 10;
+//                };
+//                Adopt(entity);
+//            }
+//        }
+//    }
+//    public override void Activate()
+//    {
+//        //          base.Activate();
 
-    //    public WorkComponent()
-    //            : base("Work", new DrawComponent("WorkHexagon", Layer.UNIT_BASE - 1))
-    //    {
+//        List<ExtenalAction> list = new List<ExtenalAction>();
+//        FetchAll<ExtenalAction>(ref list);
+//        foreach (var item in list)
+//        {
+//            //item.Parent.Enable = true;
+//            item.exint.Enable = true;
+//        }
+//    }
 
-    //    }
+//}
 
-    //    protected override List<Vector2i> GetAvlaibleSpots()
-    //    {
-    //        //return null;
-    //        //          option.tileEntity.Tile.Tilmap
-    //        TileMap map = this.Parent.Parent.Parent as TileMap;
-    //        Tile tileStart = Parent.Parent as Tile;
-    //        List<Vector2i> pattern = new List<Vector2i>();
+//abstract class ActionOptionComponent : Option// do komplete compy of movecomp , with abstract onClick
+//{
 
-    //        foreach (Tile tile in tileStart)
-    //        {
-    //            //if (tile.Entity is Resource)
-    //            {
-    //                pattern.Add(new Vector2i(-tile.X, tile.Y));
-    //            }
-    //        }
+//    DrawComponent visual;
+//    public ActionOptionComponent(string name, DrawComponent visual)
+//    {
+//        UiName = name;
+//        this.visual = visual;
+//        visual.Enable = false;
+//    }
+//    protected abstract List<Vector2i> GetAvlaibleSpots();
+//    // protected abstract bool IsSpotAvalible();
+//    protected abstract void WorldInteraction();
+//    public override void Calculate()
+//    {
+//        //TileMap map = Parent.Parent.Parent as TileMap;
 
-    //        return pattern;
-    //    }
+//        foreach (var spot in GetAvlaibleSpots())
+//        {
+//            //TileEntity e = Parent as TileEntity;
+//            ExtenalAction exint = new ExtenalAction(spot.X, spot.Y, visual.Clone(), UiName/*change to better tag later*/);
+//            exint.ClickDel = WorldInteraction;
+//            Adopt(exint);
+//        }
+//    }
+//    public override void Activate()
+//    {
+//        //          base.Activate();
 
-    //    //protected override bool IsSpotAvalible()
-    //    //{
-    //    //    throw new NotImplementedException();
-    //    //}
+//        List<ExtenalAction> list = new List<ExtenalAction>();
+//        FetchAll<ExtenalAction>(ref list);
+//        foreach (var item in list)
+//        {
+//            //item.Parent.Enable = true;
+//            item.exint.Enable = true;
+//        }
+//    }
+//    public override bool Display
+//    {
+//        set
+//        {
+//            //base.Display = value;
 
-    //    protected override void WorldInteraction()
-    //    {
-    //        Console.WriteLine("LMOA XD LOL 1337 keysyNiceAssOK");
-    //    }
-    //}
-    ////class WorkComponent : Option
-    ////{
-    ////    static WorkComponent()
-    ////    {
-    ////        ConvexShape hexagon = Hexagon.GenHexagon();
-    ////        hexagon.FillColor = Color.Green.SetAlpha(100);
-    ////        hexagon.OutlineThickness = 1;
-    ////        DrawManager.Register.Add("WorkHexagon", hexagon);
-    ////    }
-    ////    public WorkComponent()
-    ////    {
+//            List<ExtenalAction> list = new List<ExtenalAction>();
+//            FetchAll<ExtenalAction>(ref list, UiName/*change to better tag later*/);
+//            foreach (var item in list)
+//            {
+//                item.Enable = value;
+//            }
+//        }
+//    }
 
-    ////    }
-    ////    public override void Calculate()
-    ////    {
-    ////        Tile firstTile = Parent.Parent as Tile;
-    ////        foreach (Tile tile in firstTile)
-    ////        {
-    ////            if (tile.Entity is Resourse)
-    ////            {
+//}
+//class WorkComponent : ActionOptionComponent
+//{
+//    static WorkComponent()
+//    {
+//        ConvexShape hexagon = Hexagon.GenHexagon();
+//        hexagon.FillColor = Color.Green.SetAlpha(100);
+//        hexagon.OutlineThickness = 1;
+//        DrawManager.Register.Add("WorkHexagon", hexagon);
+//    }
 
-    ////            }
-    ////        }
-    ////    }
+//    public WorkComponent()
+//            : base("Work", new DrawComponent("WorkHexagon", Layer.UNIT_BASE - 1))
+//    {
 
-    ////}
-    //class ExtenalAction : Entity //generic obect to be yoused for a bidding. "UI" elemet to do external acting on click /hover
-    //{
+//    }
 
-    //    public Action ClickDel { get; set; }
+//    protected override List<Vector2i> GetAvlaibleSpots()
+//    {
+//        //return null;
+//        //          option.tileEntity.Tile.Tilmap
+//        TileMap map = this.Parent.Parent.Parent as TileMap;
+//        Tile tileStart = Parent.Parent as Tile;
+//        List<Vector2i> pattern = new List<Vector2i>();
 
-    //    public ExternalInteractiveEntity exint;
+//        foreach (Tile tile in tileStart)
+//        {
+//            //if (tile.Entity is Resource)
+//            {
+//                pattern.Add(new Vector2i(-tile.X, tile.Y));
+//            }
+//        }
 
-    //    public ExtenalAction(int x, int y, DrawComponent drawComponent, string tag)
-    //    {
-    //        SetTag(tag);
-    //        Adopt(drawComponent);
-    //        Offset = Hexagon.TRANSLATE(x, y);
-    //        exint = new ExternalInteractiveEntity(new CircleCollition(Hexagon.HEX_R, Hexagon.OFFSET_TO_CENTER), GangGang.Priority.UI_BASE);
-    //        Adopt(exint);
-    //        exint.Enable = false;
+//        return pattern;
+//    }
 
-    //        exint.ClickDel = Click;
-    //    }
-    //    private void Click(bool yes)
-    //    {
-    //        if (yes)
-    //        {
-    //            ClickDel?.Invoke();
-    //        }
-    //        Parent.Reject(this);
+//    //protected override bool IsSpotAvalible()
+//    //{
+//    //    throw new NotImplementedException();
+//    //}
 
-    //    }
-    //}
+//    protected override void WorldInteraction()
+//    {
+//        Console.WriteLine("LMOA XD LOL 1337 keysyNiceAssOK");
+//    }
+//}
+////class WorkComponent : Option
+////{
+////    static WorkComponent()
+////    {
+////        ConvexShape hexagon = Hexagon.GenHexagon();
+////        hexagon.FillColor = Color.Green.SetAlpha(100);
+////        hexagon.OutlineThickness = 1;
+////        DrawManager.Register.Add("WorkHexagon", hexagon);
+////    }
+////    public WorkComponent()
+////    {
+
+////    }
+////    public override void Calculate()
+////    {
+////        Tile firstTile = Parent.Parent as Tile;
+////        foreach (Tile tile in firstTile)
+////        {
+////            if (tile.Entity is Resourse)
+////            {
+
+////            }
+////        }
+////    }
+
+////}
+//class ExtenalAction : Entity //generic obect to be yoused for a bidding. "UI" elemet to do external acting on click /hover
+//{
+
+//    public Action ClickDel { get; set; }
+
+//    public ExternalInteractiveEntity exint;
+
+//    public ExtenalAction(int x, int y, DrawComponent drawComponent, string tag)
+//    {
+//        SetTag(tag);
+//        Adopt(drawComponent);
+//        Offset = Hexagon.TRANSLATE(x, y);
+//        exint = new ExternalInteractiveEntity(new CircleCollition(Hexagon.HEX_R, Hexagon.OFFSET_TO_CENTER), GangGang.Priority.UI_BASE);
+//        Adopt(exint);
+//        exint.Enable = false;
+
+//        exint.ClickDel = Click;
+//    }
+//    private void Click(bool yes)
+//    {
+//        if (yes)
+//        {
+//            ClickDel?.Invoke();
+//        }
+//        Parent.Reject(this);
+
+//    }
+//}
 //abstract class MyOption : Option
 //{
 //    DrawComponent grafic;

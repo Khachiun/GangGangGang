@@ -11,7 +11,7 @@ namespace GangGang
     {
         TextComponent text;
 
-        public TileEntity(int x, int y, CollitionComponent collition) : base(collition)
+        public TileEntity(int x, int y, CollitionComponent collition, Player owner = null) : base(collition)
         {
             collition.Offset += Hexagon.OFFSET_TO_CENTER;
             this.X = x;
@@ -23,6 +23,7 @@ namespace GangGang
             Adopt(text);
 
             Priority = GangGang.Priority.UNIT_BASE;
+            this.Owner = owner;
         }
 
         public Player Owner { get; set; }

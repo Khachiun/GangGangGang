@@ -13,11 +13,11 @@ namespace GangGang
             ConvexShape hexagon = Hexagon.GenHexagon();
             hexagon.FillColor = Color.Green.SetAlpha(100);
             hexagon.OutlineThickness = 1;
-            DrawComponent.Regiser("MyWorkHexagon", hexagon);
+            DrawComponent.Regiser("WorkHexagon", hexagon);
         }
-        public WorkComponent() : base(new DrawComponent("MyWorkHexagon", Layer.UNIT_BASE - 1))
+        public WorkComponent() : base(new DrawComponent("WorkHexagon", Layer.UNIT_BASE - 1))
         {
-            UiName = "MyWork";
+            UiName = "Work";
         }
 
         protected override List<Vector2i> GetAvalibleSpots(TileMap Map, TileEntity parent)

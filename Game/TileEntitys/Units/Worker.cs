@@ -14,8 +14,12 @@ namespace GangGang
         static List<Vector2i> movementPattern;
         static Worker()
         {
-            RectangleShape shape = new RectangleShape(new Square() * Hexagon.HEX_SIZE * 2, new Texture("Content/Assets/Textures/Ponn.png"));
-            DrawComponent.Regiser("Worker", shape);
+            for (int i = 0; i < Game.playerCount + 1; i++)
+            {
+                RectangleShape shape = new RectangleShape(new Square() * Hexagon.HEX_SIZE * 2, new Texture("Content/Assets/Textures/Ponn.png"));
+                shape.Color = Player.colors[i];
+                DrawComponent.Regiser("Worker" + (i), shape);
+            }
 
             movementPattern = new List<Vector2i>() {
                 new Vector2i(-1,-1),
@@ -28,12 +32,14 @@ namespace GangGang
             };
 
         }
-        public Worker(int x, int y) : base(x, y, new CircleCollition(Hexagon.HEX_R))
+        public Worker(int x, int y, Player owner) : base(x, y, new CircleCollition(Hexagon.HEX_R), owner)
         {
-            DrawComponent draw = new DrawComponent("Worker", Layer.UNIT_BASE);
+            int colorID = Owner?.ID + 1 ?? 0;
+            DrawComponent draw = new DrawComponent("Worker" + colorID , Layer.UNIT_BASE);
             draw.Offset += -Hexagon.OFFSET_TO_CENTER;
             Adopt(draw);
 
+            Heath = 10;
             MaxHealth = 10;
             Regen = 1;
 
