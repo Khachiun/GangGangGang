@@ -62,6 +62,9 @@ namespace GangGang
 
             //WorkComponent work = new WorkComponent();
             //Adopt(work);
+
+            SpawnTileEntityComponent spawn = new SpawnTileEntityComponent(2, (dx, dy) => new Building(dx, dy, Owner));
+            Adopt(spawn);
         }
 
         public override void Click(bool yes)

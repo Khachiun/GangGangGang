@@ -19,7 +19,7 @@ namespace GangGang
 
             text = new TextComponent(Heath.ToString(), GangGang.Priority.UNIT_BASE + 1);
             text.Offset += new SFML.System.Vector2f(0, -Hexagon.HEX_H);
-            text.Color = Color.Red;
+            text.Color = Color.White;
             Adopt(text);
 
             Priority = GangGang.Priority.UNIT_BASE;

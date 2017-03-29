@@ -33,14 +33,7 @@ namespace GangGang
         protected override List<Vector2i> GetAvalibleSpots(TileMap Map, TileEntity parent)
         {
             List<Vector2i> list = new List<Vector2i>();
-            foreach (var item in pattern)
-            {
-                Tile t = Map[item.X + parent.X, item.Y + parent.Y];
-                if (t != null && t.Entity == null)
-                {
-                    list.Add(new Vector2i(item.X + parent.X, item.Y + parent.Y));
-                }
-            }
+            Map.GetSuroundingPositions(new Vector2i(parent.X, parent.Y), 4, (e)=> e == null, ref list);
             return list;
         }
 

@@ -49,7 +49,8 @@ namespace GangGang
 
         public void Init(CRenderWindow window, int playerCount)
         {
-
+            int width = 10;
+            int height = 10;
             Game.playerCount = playerCount;
             players = new Player[playerCount];
             for (int i = 0; i < playerCount; i++)
@@ -65,23 +66,55 @@ namespace GangGang
             Caret caret = new Caret();
             Adopt(caret);
 
-            TileMap tilemap = new TileMap(new Vector2i(10, 10));
+            TileMap tilemap = new TileMap(new Vector2i(width, height));
             Adopt(tilemap);
 
-            Worker worker = new Worker(2, 1, players[0]);
-            //worker.Owner = players;
-            tilemap.AddTileEntity(worker);
+            List<Vector2i> list = new List<Vector2i>();
+            tilemap.GetSuroundingPositions(new Vector2i(), 1, ref list);
+            foreach (var item in list)
+            {
+                tilemap.AddTileEntity(new Worker(item.X, item.Y, players[0]));
+            }
 
-            Worker worker2 = new Worker(16, 8, players[1]);
-            //worker2.Owner = players.GetNext();
-            tilemap.AddTileEntity(worker2);
 
-            BasicCristal r = new BasicCristal(9, 2);
-            tilemap.AddTileEntity(r);
+            list.Clear();
 
-            Building b = new Building(9, 7);
-            //b.Owner = players[0];
-            tilemap.AddTileEntity(b);
+
+            tilemap.GetSuroundingPositions(new Vector2i(width + height - 2, height - 1), 1, ref list);
+
+            foreach (var item in list)
+            {
+                tilemap.AddTileEntity(new Worker(item.X, item.Y, players[1]));
+            }
+
+            int cw = 2;
+            int cc = width - 1;
+
+
+            for (int i = cc - cw; i < cc + cw + 1; i++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    if (tilemap[i, y] != null)
+                        tilemap.AddTileEntity(new BasicCristal(i, y));
+                }
+
+            }
+
+            //Worker worker = new Worker(2, 1, players[0]);
+            ////worker.Owner = players;
+            //tilemap.AddTileEntity(worker);
+
+            //Worker worker2 = new Worker(16, 8, players[1]);
+            ////worker2.Owner = players.GetNext();
+            //tilemap.AddTileEntity(worker2);
+
+            //BasicCristal r = new BasicCristal(9, 2);
+            //tilemap.AddTileEntity(r);
+
+            //Building b = new Building(9, 7, players[0]);
+            ////b.Owner = players[0];
+            //tilemap.AddTileEntity(b);
 
             shape = new CircleShape();
             shape.FillColor = new Color(0, 0, 0, 0);
@@ -233,7 +266,8 @@ namespace GangGang
         private RenderArgs args = new RenderArgs();
 
         private Vector2f idpos = new Vector2f();
-        private Vector2f cristalpos = new Vector2f(0, 70);
+        private Vector2f cristalpos = new Vector2f(0, 40);
+        private Vector2f debugpos = new Vector2f(0, 80);
         public void UI_Draw(CRenderWindow window)
         {
             DefaultText.Size = 32;
@@ -246,7 +280,14 @@ namespace GangGang
             uiText.DisplayedString = CurrrentPlayer.Cristals.ToString();
             window.Draw(uiText, args);
 
+            if (debugEnabled)
+            {
 
+                uiText.Position = debugpos;
+                uiText.DisplayedString = Game.Out;
+                window.Draw(uiText, args);
+
+            }
             //uiText.DisplayedString = CurrrentPlayer.ID.ToString();
             //DefaultText.Display(window, CurrrentPlayer.ID, RenderStates.Default);
             //DefaultText.Display(window, CurrrentPlayer.Cristals, new RenderArgs().Translate(new Vector2f(0, 70)));
@@ -256,7 +297,7 @@ namespace GangGang
         private void NextTurn()
         {
             turnCount++;
-            
+
             CurrrentPlayer = players[turnCount % playerCount];
 
             List<IUseReadTurns> list = new List<IUseReadTurns>();

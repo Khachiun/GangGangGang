@@ -20,22 +20,18 @@ namespace GangGang
             DrawComponent.Regiser("PlaceHexagon", hexagon);
         }
         Func<int, int, TileEntity> createDel;
-        float reange;
-        public SpawnTileEntityComponent(float reange, Func<int, int, TileEntity> createDel) : base(new DrawComponent("PlaceHexagon", Layer.UNIT_BASE - 1))
+        int range;
+        public SpawnTileEntityComponent(int range, Func<int, int, TileEntity> createDel) : base(new DrawComponent("PlaceHexagon", Layer.UNIT_BASE - 1))
         {
             UiName = "Spawn";
             this.createDel = createDel;
-            this.reange = (Hexagon.HEX_R * reange * 2) * (Hexagon.HEX_R * reange * 2);
+            this.range = range;
         }
 
         protected override List<Vector2i> GetAvalibleSpots(TileMap map, TileEntity parent)
         {
             List<Vector2i> list = new List<Vector2i>();
-            foreach (Tile item in map.Children)
-            {
-                if (item.Entity == null && (Position - item.Position).Pow2().Length() < reange)
-                    list.Add(new Vector2i(item.X, item.Y));
-            }
+            map.GetSuroundingPositions(new Vector2i(parent.X, parent.Y), range, (e) => e == null, ref list);
             return list;
         }
 

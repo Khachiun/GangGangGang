@@ -1,4 +1,5 @@
-﻿using SFML.Graphics;
+﻿using Czaplicki.SFMLE.Extentions;
+using SFML.Graphics;
 using SFML.System;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 namespace GangGang
 {
 
-    
+
 
     public class Tile : Entity
     {
@@ -59,10 +60,12 @@ namespace GangGang
         public TileMap(Vector2i mapSize)
         {
             array = new Tile[mapSize.X + mapSize.Y, mapSize.Y];
-
+            //array = new Tile[mapSize.X, mapSize.Y];
 
             for (int y = 0; y < mapSize.Y; y++)
                 for (int x = y; x < y + mapSize.X; x++)
+            //for (int y = 0; y < mapSize.Y; y++)
+            //    for (int x = 0; x < mapSize.X; x++)
                 {
                     Tile t = new Tile(x, y);
                     array[x, y] = t;
@@ -105,8 +108,62 @@ namespace GangGang
             array[entity.X, entity.Y].Entity = entity;
             array[entity.X, entity.Y].Adopt(entity);
         }
+        public void GetSurounding(Vector2i startPoint, int range, ref List<TileEntity> result)
+        {
+            float r = (Hexagon.HEX_A * range) * (Hexagon.HEX_A * range) + 1;
+            Vector2f center = Hexagon.TRANSLATE(startPoint);
+
+            foreach (Tile item in this.Children)
+            {
+                if ((center - item.Position).Pow2().Length() < r)
+                {
+                    result.Add(item.Entity);
+                }
+            }
+        }
+        public void GetSurounding(Vector2i startPoint, int range, Func<TileEntity, bool> condition, ref List<TileEntity> result)
+        {
+            float r = (Hexagon.HEX_A * range) * (Hexagon.HEX_A * range) + 1;
+            Vector2f center = Hexagon.TRANSLATE(startPoint);
+
+            foreach (Tile item in this.Children)
+            {
+                if (condition(item.Entity) &&
+                    (center - item.Position).Pow2().Length() < r)
+                {
+                    result.Add(item.Entity);
+                }
+            }
+        }
+        public void GetSuroundingPositions(Vector2i startPoint, int range, ref List<Vector2i> result)
+        {
+            float r = (Hexagon.HEX_A * range) * (Hexagon.HEX_A * range) + 1;
+            Vector2f center = Hexagon.TRANSLATE(startPoint);
+
+            foreach (Tile item in this.Children)
+            {
+                if ((center - item.Position).Pow2().Length() < r)
+                {
+                    result.Add(new Vector2i(item.X, item.Y));
+                }
+            }
+        }
+        public void GetSuroundingPositions(Vector2i startPoint, int range, Func<TileEntity, bool> condition, ref List<Vector2i> result)
+        {
+            float r = (Hexagon.HEX_A * range) * (Hexagon.HEX_A * range) + 1;
+            Vector2f center = Hexagon.TRANSLATE(startPoint);
+            foreach (Tile item in this.Children)
+            {
+                if (condition(item.Entity) &&
+                    (center - item.Position).Pow2().Length() < r)
+                {
+                    result.Add(new Vector2i(item.X, item.Y));
+                }
+            }
+        }
+
     }
 
-    
+
 
 }
