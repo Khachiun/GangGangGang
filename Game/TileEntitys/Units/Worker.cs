@@ -50,7 +50,7 @@ namespace GangGang
             WorkComponent work = new WorkComponent();
             Adopt(work);
 
-            AttackComponent attack = new AttackComponent(5);
+            AttackComponent attack = new AttackComponent(5, 3);
             Adopt(attack);
 
             MoveComponent move = new MoveComponent();

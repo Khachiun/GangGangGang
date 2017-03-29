@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace GangGang
 {
-    class CharecterSpawnComponent : OptionFoundation
+    class SpawnTileEntityComponent : OptionFoundation
     {
 
-        static CharecterSpawnComponent()
+        static SpawnTileEntityComponent()
         {
             ConvexShape hexagon = Hexagon.GenHexagon();
             hexagon.FillColor = Color.White.SetAlpha(100);
@@ -21,11 +21,11 @@ namespace GangGang
         }
         Func<int, int, TileEntity> createDel;
         float reange;
-        public CharecterSpawnComponent(float reange, Func<int, int, TileEntity> createDel) : base(new DrawComponent("PlaceHexagon", Layer.UNIT_BASE - 1))
+        public SpawnTileEntityComponent(float reange, Func<int, int, TileEntity> createDel) : base(new DrawComponent("PlaceHexagon", Layer.UNIT_BASE - 1))
         {
             UiName = "Spawn";
             this.createDel = createDel;
-            this.reange = (Hexagon.HEX_R * Hexagon.HEX_R) * (10 * reange);
+            this.reange = (Hexagon.HEX_R * reange * 2) * (Hexagon.HEX_R * reange * 2);
         }
 
         protected override List<Vector2i> GetAvalibleSpots(TileMap map, TileEntity parent)

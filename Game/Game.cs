@@ -256,8 +256,8 @@ namespace GangGang
         private void NextTurn()
         {
             turnCount++;
-
-            CurrrentPlayer = players[(int)(turnCount / players.Length)];
+            
+            CurrrentPlayer = players[turnCount % playerCount];
 
             List<IUseReadTurns> list = new List<IUseReadTurns>();
             FetchAll<IUseReadTurns>(ref list);

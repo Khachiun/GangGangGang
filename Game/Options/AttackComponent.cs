@@ -20,10 +20,12 @@ namespace GangGang
         }
 
         private int damage;
-        public AttackComponent(int damage) : base(new DrawComponent("AttackComponent", Layer.UNIT_BASE - 1))
+        private float reange;
+        public AttackComponent(int damage, int reange) : base(new DrawComponent("AttackComponent", Layer.UNIT_BASE - 1))
         {
             this.damage = damage;
             UiName = "Attack";
+            this.reange =  (Hexagon.HEX_A * reange ) * ( Hexagon.HEX_A * reange);
         }
 
         protected override List<Vector2i> GetAvalibleSpots(TileMap map, TileEntity parent)
@@ -31,7 +33,8 @@ namespace GangGang
             List<Vector2i> list = new List<Vector2i>();
             foreach (Tile item in map.Children)
             {
-                if (item.Entity is TileEntity)
+                if (item.Entity is TileEntity &&
+                    (Position - item.Position).Pow2().Length() < reange)
                     list.Add(new Vector2i(item.X, item.Y));
             }
             return list;

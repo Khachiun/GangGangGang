@@ -22,7 +22,7 @@ namespace GangGang
 
         public Building(int x, int y) : base(x, y, new CircleCollition(Hexagon.HEX_R))
         {
-            Adopt(new CharecterSpawnComponent(3, (X, Y) => new Worker(X, Y, Owner)));
+            Adopt(new SpawnTileEntityComponent(3, (X, Y) => new Worker(X, Y, Owner)));
             DrawComponent draw = new DrawComponent("Buliding", Layer.UNIT_BASE);
             draw.Offset += -Hexagon.OFFSET_TO_CENTER;
             Adopt(draw);
