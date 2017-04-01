@@ -25,7 +25,7 @@ namespace GangGang
 
                 Square source = new Square( 
                     (CurrFrame % frameAmountWidth) * frameWidth,
-                    ((CurrFrame / frameAmountWidth) - (CurrFrame % frameAmountWidth)) * frameWidth,
+                    ((CurrFrame - (CurrFrame % frameAmountWidth)) / frameAmountWidth) * frameWidth,
                     frameWidth, frameWidth);
 
                 verts = worldSquare.ToVertexArray(source, color);
