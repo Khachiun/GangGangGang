@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SFML.System;
 
 namespace GangGang
 {
@@ -13,10 +14,20 @@ namespace GangGang
 
         static BasicCristal()
         {
-            //Square rect = new Square(Hexagon.HEX_SIZE * 1, Hexagon.HEX_SIZE * 2);
+            ConvexShape crystal = new ConvexShape(8);
 
-            //RectangleShape shape = new RectangleShape(rect, new Texture("Content/Assets/Textures/Concept_Kristal.png"));
-            //DrawComponent.Regiser("Cristal", shape);
+            crystal.SetPoint(0, new Vector2f(0, 0));
+            crystal.SetPoint(1, new Vector2f(1, 1));
+            crystal.SetPoint(2, new Vector2f(0, 2));
+            crystal.SetPoint(3, new Vector2f(-1, 1));
+
+            Random rn = new Random();
+
+            crystal.Scale = new Vector2f( rn.Next(6, 12), rn.Next(8, 16));
+            crystal.FillColor = Color.Cyan;
+            crystal.Position = new Vector2f( 0, -16);
+
+            DrawComponent.Regiser("Cristal", crystal);
         }
 
         int ueses = 3;
@@ -26,12 +37,10 @@ namespace GangGang
         TileEntity entity;
         public BasicCristal(int x, int y) : base(x, y)
         {
-            //DrawComponent draw = new DrawComponent("Cristal", Layer.UNIT_BASE);
-
-            DrawComponent draw = new Animation(new Square() * (Hexagon.HEX_H * 4), Color.White, "Content/Assets/Textures/crystal_spritesheet.png", Layer.UI_BASE, 16, 4, 0, 15);
+            DrawComponent draw = new DrawComponent("Cristal", Layer.UNIT_BASE);
 
 
-            draw.Offset -= Hexagon.OFFSET_TO_CENTER;
+            draw.Offset += Hexagon.OFFSET_TO_CENTER;
             Adopt(draw);
         }
 
