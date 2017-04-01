@@ -32,8 +32,6 @@ namespace GangGang
 
         protected override void OnSelectedClick(TileEntity executer, Tile resiver)
         {
-            TileMap map = resiver.Parent as TileMap;
-            map.MoveEntity(executer, new Vector2i(resiver.X, resiver.Y));
             executer.Move(new Vector2i(resiver.X, resiver.Y));
         }
     }

@@ -36,20 +36,25 @@ namespace GangGang
         public int MaxHealth { get; set; }
         public int Regen { get; set; }
 
+        protected float Speed { get; set; } = 0.9f;
+
+
         public int X { get; set; }
         public int Y { get; set; }
 
         public virtual void Move(Vector2i pos)
         {
+            Offset = Position - Hexagon.TRANSLATE(pos);
             
+            TileMap map = Parent.Parent as TileMap;
+            map.MoveEntity(this, pos);
         }
 
         public override void Update()
         {
             base.Update();
 
-
-
+            Offset *= 0.9f;
 
         }
 
@@ -99,11 +104,6 @@ namespace GangGang
                 }
             }
         }
-
-        //public void OnNewTurn()
-        //{
-        //    throw new NotImplementedException();
-        //}
     }
 
 }

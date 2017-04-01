@@ -11,7 +11,6 @@ namespace GangGang
 {
     class Worker : TileEntity
     {
-        static List<Vector2i> movementPattern;
         static Worker()
         {
             for (int i = 0; i < Game.playerCount + 1; i++)
@@ -20,16 +19,6 @@ namespace GangGang
                 shape.Color = Player.colors[i];
                 DrawComponent.Regiser("Worker" + (i), shape);
             }
-
-            movementPattern = new List<Vector2i>() {
-                new Vector2i(-1,-1),
-                new Vector2i( 0,-1),
-                new Vector2i( 1, 0),
-                new Vector2i( 1, 1),
-                new Vector2i( 0, 1),
-                new Vector2i(-1, 0)
-
-            };
 
         }
         public Worker(int x, int y, Player owner) : base(x, y, new CircleCollition(Hexagon.HEX_R), owner)
@@ -53,6 +42,10 @@ namespace GangGang
             AttackComponent attack = new AttackComponent(5, 3);
             Adopt(attack);
 
+
+            SpawnTileEntityComponent spawn = new SpawnTileEntityComponent(2, (dx, dy) => new Building(dx, dy, Owner));
+            Adopt(spawn);
+
             MoveComponent move = new MoveComponent();
             Adopt(move);
 
@@ -62,9 +55,6 @@ namespace GangGang
 
             //WorkComponent work = new WorkComponent();
             //Adopt(work);
-
-            SpawnTileEntityComponent spawn = new SpawnTileEntityComponent(2, (dx, dy) => new Building(dx, dy, Owner));
-            Adopt(spawn);
         }
 
         public override void Click(bool yes)
