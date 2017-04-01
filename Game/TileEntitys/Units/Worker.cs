@@ -13,20 +13,37 @@ namespace GangGang
     {
         static Worker()
         {
-            for (int i = 0; i < Game.playerCount + 1; i++)
-            {
-                RectangleShape shape = new RectangleShape(new Square() * Hexagon.HEX_SIZE * 2, new Texture("Content/Assets/Textures/Ponn.png"));
-                shape.Color = Player.colors[i];
-                DrawComponent.Regiser("Worker" + (i), shape);
-            }
+            ConvexShape headShape = new ConvexShape();
+            //fill with vertexes
+
+            DrawComponent.Regiser("WorkerHead", headShape);
+
+            ConvexShape bodyShape = new ConvexShape();
+            //fill with vertexes
+            DrawComponent.Regiser("WorkerBody", bodyShape);
+
+            ConvexShape feetShape = new ConvexShape();
+            //fill with vertexes
+
+            DrawComponent.Regiser("WorkerFeet", feetShape);
+
+
+
+
 
         }
+
+        DrawComponent head, body, feet;
+
         public Worker(int x, int y, Player owner) : base(x, y, new CircleCollition(Hexagon.HEX_R), owner)
         {
-            int colorID = Owner?.ID + 1 ?? 0;
-            DrawComponent draw = new DrawComponent("Worker" + colorID , Layer.UNIT_BASE);
-            draw.Offset += -Hexagon.OFFSET_TO_CENTER;
-            Adopt(draw);
+            DrawComponent head = new DrawComponent("WorkerHead", Layer.UNIT_BASE);
+            DrawComponent body = new DrawComponent("WorkerBody", Layer.UNIT_BASE);
+            DrawComponent feet = new DrawComponent("WorkerFeet", Layer.UNIT_BASE);
+            
+            Adopt(head);
+            Adopt(body);
+            Adopt(feet);
 
             Heath = 10;
             MaxHealth = 10;

@@ -37,6 +37,9 @@ namespace GangGang
 
         public static ConvexShape GenHexagon()
         {
+
+            
+
             //Skaper en convexShape
             ConvexShape Hexagon = new ConvexShape(7);
 

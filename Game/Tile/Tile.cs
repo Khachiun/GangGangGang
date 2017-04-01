@@ -19,6 +19,8 @@ namespace GangGang
         {
             ConvexShape hexagon = Hexagon.GenHexagon();
 
+
+
             DrawComponent.Regiser("Hexagon", hexagon);
         }
 

@@ -24,7 +24,7 @@ namespace GangGang
 
             //ContexStettings för insällningar på försters rendering
             ContextSettings cs = new ContextSettings();
-            cs.AntialiasingLevel = 30;
+            cs.AntialiasingLevel = 32;
             cs.StencilBits = 0;
 
             //skapar fönstret
