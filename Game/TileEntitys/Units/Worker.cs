@@ -11,7 +11,7 @@ namespace GangGang
 {
     class Worker : TileEntity
     {
-        static Worker()
+        static ConvexShape CreateWorkerHead()
         {
             ConvexShape headShape = new ConvexShape(4);
             //fill with vertexes
@@ -20,11 +20,14 @@ namespace GangGang
             headShape.SetPoint(2, new Vector2f(0, -2));
             headShape.SetPoint(3, new Vector2f(1, -1));
 
-            headShape.Position = new Vector2f( Hexagon.HEX_H, Hexagon.HEX_R - 4 );
+            headShape.Position = new Vector2f(Hexagon.HEX_H, Hexagon.HEX_R - 4);
             headShape.Scale = new Vector2f(16, 24);
+            headShape.FillColor = new Color(200,200, 200);
 
-            DrawComponent.Regiser("WorkerHead", headShape);
-
+            return headShape;
+        }
+        static ConvexShape CreateWorkerBody()
+        {
             ConvexShape bodyShape = new ConvexShape(4);
             //fill with vertexes
             bodyShape.SetPoint(0, new Vector2f(0, 0));
@@ -32,12 +35,14 @@ namespace GangGang
             bodyShape.SetPoint(2, new Vector2f(0, -2));
             bodyShape.SetPoint(3, new Vector2f(1, -1));
 
-            bodyShape.FillColor = Color.Blue;
+            bodyShape.FillColor = new Color(150, 150, 150);
             bodyShape.Position = new Vector2f(Hexagon.HEX_H, Hexagon.HEX_R + 8);
             bodyShape.Scale = new Vector2f(24, 16);
 
-            DrawComponent.Regiser("WorkerBody", bodyShape);
-
+            return bodyShape;
+        }
+        static ConvexShape CreateWorkerFeet()
+        {
             ConvexShape feetShape = new ConvexShape(4);
             //fill with vertexes
             feetShape.SetPoint(0, new Vector2f(-12, 0));
@@ -45,25 +50,27 @@ namespace GangGang
             feetShape.SetPoint(2, new Vector2f(6, -6));
             feetShape.SetPoint(3, new Vector2f(12, 0));
 
-            feetShape.FillColor = Color.Magenta;
+            feetShape.FillColor = new Color(100, 100, 100);
             feetShape.Position = new Vector2f(Hexagon.HEX_H, Hexagon.HEX_R + 14);
             feetShape.Scale = new Vector2f(1.5f, 3);
 
-            DrawComponent.Regiser("WorkerFeet", feetShape);
+            return feetShape;
+        }
+        static Worker()
+        {
 
-
-
-
-
+            Player.IndexRegisterShape("WorkerHead", CreateWorkerHead);
+            Player.IndexRegisterShape("WorkerBody", CreateWorkerBody);
+            Player.IndexRegisterShape("WorkerFeet", CreateWorkerFeet);
         }
 
         DrawComponent head, body, feet;
 
         public Worker(int x, int y, Player owner) : base(x, y, new CircleCollition(Hexagon.HEX_R), owner)
         {
-            DrawComponent body = new DrawComponent("WorkerBody", Layer.UNIT_BASE + 1);
-            DrawComponent head = new DrawComponent("WorkerHead", Layer.UNIT_BASE + 2);
-            DrawComponent feet = new DrawComponent("WorkerFeet", Layer.UNIT_BASE);
+            body = Player.GetIndexedShape("WorkerBody", Layer.UNIT_BASE + 1, owner);
+            head = Player.GetIndexedShape("WorkerHead", Layer.UNIT_BASE + 2, owner);
+            feet = Player.GetIndexedShape("WorkerFeet", Layer.UNIT_BASE, owner);
             
             Adopt(body);
             Adopt(head);
