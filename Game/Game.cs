@@ -91,15 +91,17 @@ namespace GangGang
             int cc = width - 1;
 
 
-            for (int i = cc - cw; i < cc + cw + 1; i++)
-            {
-                for (int y = 0; y < height; y++)
-                {
-                    if (tilemap[i, y] != null)
-                        tilemap.AddTileEntity(new BasicCristal(i, y));
-                }
+            //for (int i = cc - cw; i < cc + cw + 1; i++)
+            //{
+            //    for (int y = 0; y < height; y++)
+            //    {
+            //        if (tilemap[i, y] != null)
+            //            tilemap.AddTileEntity(new BasicCristal(i, y));
+            //    }
 
-            }
+            //}
+
+            tilemap.AddTileEntity(new BasicCristal(9, 2));
 
             //Worker worker = new Worker(2, 1, players[0]);
             ////worker.Owner = players;

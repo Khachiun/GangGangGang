@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GangGang.Rendering
+namespace GangGang
 {
     class Animation : DrawComponent, Drawable
     {
@@ -23,25 +23,30 @@ namespace GangGang.Rendering
             {
                 currFrame = value;
 
-                Square source = new Square( (CurrFrame % frameAmountWidth) * frameWidth, ((CurrFrame / frameAmountWidth) - (CurrFrame % frameAmountWidth)) * frameWidth );
+                Square source = new Square( 
+                    (CurrFrame % frameAmountWidth) * frameWidth,
+                    ((CurrFrame / frameAmountWidth) - (CurrFrame % frameAmountWidth)) * frameWidth,
+                    frameWidth, frameWidth);
 
                 verts = worldSquare.ToVertexArray(source, color);
 
             }
         }
-        RenderStates renderstates = RenderStates.Default;
-        public Animation(string texturePath, int layer, int frameSpeed, int frameAmountWidth, int startFrame, int endFrame) : base("", layer)
+        Texture texture;
+        public Animation(Square sq, Color color, string texturePath, int layer, int frameSpeed, int frameAmountWidth, int startFrame, int endFrame) : base("", layer)
         {
+            this.color = color;
+            worldSquare = sq;
             this.ID = DrawComponent.CreateRandomID();
             DrawComponent.Regiser(this.ID, this);
-            renderstates.Texture = new Texture(texturePath);
+            texture = new Texture(texturePath);
 
-            CurrFrame = startFrame;
             this.frameSpeed = frameSpeed;
             this.frameAmountWidth = frameAmountWidth;
-            frameWidth = (int)(renderstates.Texture.Size.X / frameAmountWidth);
+            frameWidth = (int)(texture.Size.X / frameAmountWidth);
             this.startFrame = startFrame;
             this.endFrame = endFrame;
+            CurrFrame = startFrame;
             
 
         }
@@ -57,7 +62,8 @@ namespace GangGang.Rendering
 
         public void Draw(RenderTarget target, RenderStates states)
         {
-            target.Draw(verts, PrimitiveType.Quads, renderstates);
+            states.Texture = texture;
+            target.Draw(verts, PrimitiveType.Quads, states);
         }
     }
 }

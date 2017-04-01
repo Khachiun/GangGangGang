@@ -74,3 +74,4 @@ C:\Users\jessy.brodin\Documents\GitHub\GangGangGang\Game\bin\Debug\Czaplicki.Uni
 C:\Users\jessy.brodin\Documents\GitHub\GangGangGang\Game\obj\Debug\Game.csprojResolveAssemblyReference.cache
 C:\Users\jessy.brodin\Documents\GitHub\GangGangGang\Game\obj\Debug\Game.exe
 C:\Users\jessy.brodin\Documents\GitHub\GangGangGang\Game\obj\Debug\Game.pdb
+C:\Users\jessy.brodin\Documents\GitHub\GangGangGang\Game\bin\Debug\Content\Assets\Textures\crystal_spritesheet.png

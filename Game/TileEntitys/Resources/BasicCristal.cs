@@ -13,10 +13,10 @@ namespace GangGang
 
         static BasicCristal()
         {
-            Square rect = new Square(Hexagon.HEX_SIZE * 1, Hexagon.HEX_SIZE * 2);
+            //Square rect = new Square(Hexagon.HEX_SIZE * 1, Hexagon.HEX_SIZE * 2);
 
-            RectangleShape shape = new RectangleShape(rect, new Texture("Content/Assets/Textures/Concept_Kristal.png"));
-            DrawComponent.Regiser("Cristal", shape);
+            //RectangleShape shape = new RectangleShape(rect, new Texture("Content/Assets/Textures/Concept_Kristal.png"));
+            //DrawComponent.Regiser("Cristal", shape);
         }
 
         int ueses = 3;
@@ -26,8 +26,12 @@ namespace GangGang
         TileEntity entity;
         public BasicCristal(int x, int y) : base(x, y)
         {
-            DrawComponent draw = new DrawComponent("Cristal", Layer.UNIT_BASE);
-            draw.Offset += -Hexagon.OFFSET_TO_CENTER;
+            //DrawComponent draw = new DrawComponent("Cristal", Layer.UNIT_BASE);
+
+            DrawComponent draw = new Animation(new Square() * 100, Color.White, "Content/Assets/Textures/crystal_spritesheet.png", Layer.UI_BASE, 16, 4, 0, 15);
+
+
+            //draw.Offset += -Hexagon.OFFSET_TO_CENTER;
             Adopt(draw);
         }
 
