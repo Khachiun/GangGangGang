@@ -23,11 +23,7 @@ namespace GangGang
         protected override List<Vector2i> GetAvalibleSpots(TileMap Map, TileEntity parent)
         {
             List<Vector2i> list = new List<Vector2i>();
-            foreach (Tile item in Map.Children)
-            {
-                if (item.Entity is ResourceBase)
-                    list.Add(new Vector2i(item.X, item.Y));
-            }
+            Map.GetSuroundingPositions(new Vector2i(parent.X, parent.Y), 2, (e) => e is ResourceBase, ref list);
             return list;
         }
 
