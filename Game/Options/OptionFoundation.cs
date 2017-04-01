@@ -53,15 +53,17 @@ namespace GangGang
 
                 OptionObjectDelegate del = (m, l) =>
                {
-                   //if (usedThisTurn <= maxUsePerTrun)
-                   //{
-                   //    OnSelectedClick(m, l);
-                   //}
                    usedThisTurn++;
-                   this.Enable = false;
+                   List<Option> list = new List<Option>();
+                   parent.FetchAllActive<Option>(ref list);
+
+                   foreach (var option in list)
+                   {
+                       option.Enable = false;
+                   }
                };
 
-                OptionObject e = new OptionObject(item.X, item.Y, draw, del + OnSelectedClick , this);
+                OptionObject e = new OptionObject(item.X, item.Y, draw, OnSelectedClick + del , this);
                 e.Offset -= Position;
                 e.Show = false;
                 Adopt(e);

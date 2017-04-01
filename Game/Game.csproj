@@ -71,6 +71,7 @@
     <Compile Include="Options\MoveComponent.cs" />
     <Compile Include="Options\OptionFoundation.cs" />
     <Compile Include="Options\WorkComponent.cs" />
+    <Compile Include="Rendering\Animation.cs" />
     <Compile Include="TileEntitys\Buildings\Building.cs" />
     <Compile Include="TileEntitys\Resources\BasicCristal.cs" />
     <Compile Include="TileEntitys\Resources\ResourceBase.cs" />
