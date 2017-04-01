@@ -60,7 +60,7 @@ namespace GangGang
             Adopt(attack);
 
 
-            SpawnTileEntityComponent spawn = new SpawnTileEntityComponent(2, (dx, dy) => new Building(dx, dy, Owner));
+            SpawnTileEntityComponent spawn = new SpawnTileEntityComponent("build C:" + "", 40, 2, (dx, dy) => new Building(dx, dy, Owner));
             Adopt(spawn);
 
             MoveComponent move = new MoveComponent();

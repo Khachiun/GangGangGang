@@ -13,10 +13,12 @@ namespace GangGang
         private int maxUsePerTrun;
         private int usedThisTurn = 0;
 
-        protected OptionFoundation(DrawComponent draw, int usePerTurn = 1)
+
+        protected OptionFoundation(DrawComponent draw, int usePerTurn = 1, int cristalConsumtion = 0)
         {
             grafic = draw;
             maxUsePerTrun = usedThisTurn;
+            this.cristalConsumtion = cristalConsumtion;
         }
         public override void OnNewTurn()
         {
@@ -63,27 +65,35 @@ namespace GangGang
                    }
                };
 
-                OptionObject e = new OptionObject(item.X, item.Y, draw, OnSelectedClick + del , this);
+                OptionObject e = new OptionObject(item.X, item.Y, draw, OnSelectedClick + del, this);
                 e.Offset -= Position;
                 e.Show = false;
                 Adopt(e);
             }
-            
+
         }
         /// <summary>
         /// when butten is chossen in the menu
         /// </summary>
         public override void Activate()
         {
-            Display = true;
-            List<OptionObject> list = new List<OptionObject>();
-            FetchAll<OptionObject>(ref list);
-            foreach (OptionObject item in list)
+            if (Game.CurrrentPlayer.Cristals >= cristalConsumtion)
             {
-                item.oneClick.Enable = true;
+                Game.CurrrentPlayer.Cristals -= cristalConsumtion;
+                Display = true;
+                List<OptionObject> list = new List<OptionObject>();
+                FetchAll<OptionObject>(ref list);
+                foreach (OptionObject item in list)
+                {
+                    item.oneClick.Enable = true;
+                }
+            }
+            else
+            {
+                Display = false;
             }
         }
-        
+
         public override void CleanUp()
         {
             List<OptionObject> list = new List<OptionObject>();

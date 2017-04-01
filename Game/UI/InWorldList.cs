@@ -69,7 +69,9 @@ namespace GangGang
                 options[i].Calculate();
                 CollitionComponent butten = new RectangleCollition(buttenSize, new Vector2f());
                 butten.Adopt(new DrawComponent("btn", Layer.UI_BASE + 1));
-                butten.Adopt(new TextComponent(options[i].UiName, Layer.UI_BASE + 2));
+                butten.Adopt(new TextComponent(options[i].UiName +" C: " + options[i].cristalConsumtion, Layer.UI_BASE + 2));
+                
+
                 butten.Offset = new Vector2f(10, (buttenSize.Size.Y + 10) * i + 10);
                 buttens[i] = butten;
                 Adopt(butten);

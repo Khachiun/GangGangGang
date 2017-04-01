@@ -41,6 +41,7 @@ namespace GangGang
         public abstract bool Display { set; }
         public virtual bool Avalible { get; set; } = true;
         public string UiName { get; set; } = "Default";
+        public int cristalConsumtion;
 
         public Option()
         {

@@ -21,9 +21,9 @@ namespace GangGang
         }
         Func<int, int, TileEntity> createDel;
         int range;
-        public SpawnTileEntityComponent(int range, Func<int, int, TileEntity> createDel) : base(new DrawComponent("PlaceHexagon", Layer.UNIT_BASE - 1))
+        public SpawnTileEntityComponent(string menuName,int cristalConsumtion, int range, Func<int, int, TileEntity> createDel) : base(new DrawComponent("PlaceHexagon", Layer.UNIT_BASE - 1),1,cristalConsumtion)
         {
-            UiName = "Spawn";
+            UiName = menuName;
             this.createDel = createDel;
             this.range = range;
         }
