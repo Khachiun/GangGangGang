@@ -28,10 +28,10 @@ namespace GangGang
         {
             //DrawComponent draw = new DrawComponent("Cristal", Layer.UNIT_BASE);
 
-            DrawComponent draw = new Animation(new Square() * 100, Color.White, "Content/Assets/Textures/crystal_spritesheet.png", Layer.UI_BASE, 16, 4, 0, 15);
+            DrawComponent draw = new Animation(new Square() * (Hexagon.HEX_H * 4), Color.White, "Content/Assets/Textures/crystal_spritesheet.png", Layer.UI_BASE, 16, 4, 0, 15);
 
 
-            //draw.Offset += -Hexagon.OFFSET_TO_CENTER;
+            draw.Offset -= Hexagon.OFFSET_TO_CENTER;
             Adopt(draw);
         }
 
