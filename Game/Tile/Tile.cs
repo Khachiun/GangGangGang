@@ -110,7 +110,7 @@ namespace GangGang
         }
         public void GetSurounding(Vector2i startPoint, int range, ref List<TileEntity> result)
         {
-            float r = (Hexagon.HEX_A * range) * (Hexagon.HEX_A * range) + 1;
+            float r = (Hexagon.HEX_HEIGHT * range) * (Hexagon.HEX_HEIGHT * range) + 1;
             Vector2f center = Hexagon.TRANSLATE(startPoint);
 
             foreach (Tile item in this.Children)
@@ -123,7 +123,7 @@ namespace GangGang
         }
         public void GetSurounding(Vector2i startPoint, int range, Func<TileEntity, bool> condition, ref List<TileEntity> result)
         {
-            float r = (Hexagon.HEX_A * range) * (Hexagon.HEX_A * range) + 1;
+            float r = (Hexagon.HEX_HEIGHT * range) * (Hexagon.HEX_HEIGHT * range) + 1;
             Vector2f center = Hexagon.TRANSLATE(startPoint);
 
             foreach (Tile item in this.Children)
@@ -137,7 +137,7 @@ namespace GangGang
         }
         public void GetSuroundingPositions(Vector2i startPoint, int range, ref List<Vector2i> result)
         {
-            float r = (Hexagon.HEX_A * range) * (Hexagon.HEX_A * range) + 1;
+            float r = (Hexagon.HEX_HEIGHT * range) * (Hexagon.HEX_HEIGHT * range) + 1;
             Vector2f center = Hexagon.TRANSLATE(startPoint);
 
             foreach (Tile item in this.Children)
@@ -150,7 +150,7 @@ namespace GangGang
         }
         public void GetSuroundingPositions(Vector2i startPoint, int range, Func<TileEntity, bool> condition, ref List<Vector2i> result)
         {
-            float r = (Hexagon.HEX_A * range) * (Hexagon.HEX_A * range) + 1;
+            float r = (Hexagon.HEX_HEIGHT * range) * (Hexagon.HEX_HEIGHT * range) + 1;
             Vector2f center = Hexagon.TRANSLATE(startPoint);
             foreach (Tile item in this.Children)
             {

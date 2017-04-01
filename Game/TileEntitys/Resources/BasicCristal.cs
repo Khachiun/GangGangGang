@@ -22,8 +22,7 @@ namespace GangGang
         int ueses = 3;
         int useCount = 0;
         int amount = 10;
-
-
+        
         TileEntity entity;
         public BasicCristal(int x, int y) : base(x, y)
         {

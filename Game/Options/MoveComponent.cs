@@ -13,18 +13,7 @@ namespace GangGang
             hexagon.FillColor = Color.Blue.SetAlpha(100);
             hexagon.OutlineThickness = 1;
             DrawComponent.Regiser("MoveHexagon", hexagon);
-
-            pattern = new List<Vector2i>() {
-                new Vector2i(-1, -1),
-                new Vector2i(0, -1),
-                new Vector2i(1, 0),
-                new Vector2i(1, 1),
-                new Vector2i(0, 1),
-                new Vector2i(-1, 0)
-
-            };
         }
-        static List<Vector2i> pattern;
         public MoveComponent() : base(new DrawComponent("MoveHexagon", Layer.UNIT_BASE - 1))
         {
             UiName = "Move";
@@ -33,7 +22,11 @@ namespace GangGang
         protected override List<Vector2i> GetAvalibleSpots(TileMap Map, TileEntity parent)
         {
             List<Vector2i> list = new List<Vector2i>();
-            Map.GetSuroundingPositions(new Vector2i(parent.X, parent.Y), 4, (e)=> e == null, ref list);
+            Map.GetSuroundingPositions(
+                new Vector2i(parent.X, parent.Y),
+                4,
+                (e) => e == null,
+                ref list);
             return list;
         }
 
@@ -41,6 +34,7 @@ namespace GangGang
         {
             TileMap map = resiver.Parent as TileMap;
             map.MoveEntity(executer, new Vector2i(resiver.X, resiver.Y));
+            executer.Move(new Vector2i(resiver.X, resiver.Y));
         }
     }
 }

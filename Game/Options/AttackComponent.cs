@@ -25,13 +25,15 @@ namespace GangGang
         {
             this.damage = damage;
             UiName = "Attack";
-            this.reange =  (Hexagon.HEX_A * reange ) * ( Hexagon.HEX_A * reange) + 1;
+            this.reange =  (Hexagon.HEX_HEIGHT * reange ) * ( Hexagon.HEX_HEIGHT * reange) + 1;
         }
 
         protected override List<Vector2i> GetAvalibleSpots(TileMap map, TileEntity parent)
         {
             List<Vector2i> list = new List<Vector2i>();
             map.GetSuroundingPositions(new Vector2i(parent.X, parent.Y), 3, (e) => e is TileEntity, ref list);
+
+            
             return list;
         }
 

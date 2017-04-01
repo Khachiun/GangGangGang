@@ -14,8 +14,8 @@ namespace GangGang
         public static float HEX_SIZE { get; } = 32;
         public static float HEX_H { get; } = 0.5f * HEX_SIZE;
         public static float HEX_R { get; } = 0.8660254f * HEX_SIZE;
-        public static float HEX_A { get; } = 2 * HEX_R;
-        public static float HEX_B { get; } = HEX_SIZE + HEX_R + HEX_R;
+        public static float HEX_HEIGHT { get; } = 2 * HEX_R;
+        public static float HEX_WIDTH { get; } = HEX_SIZE + HEX_R + HEX_R;
 
         //, hexH, hexR, hexA, hexB;
 
@@ -66,7 +66,7 @@ namespace GangGang
         {
             return new Vector2f(pos.X * (Hexagon.HEX_SIZE + Hexagon.HEX_H), pos.Y * 2 * Hexagon.HEX_R + (pos.X * -Hexagon.HEX_R));
         }
-        public static Vector2i REVERCE(Vector2f pos)
+        public static Vector2i REVERSE(Vector2f pos)
         {
             //return new Vector2f(x * (Hexagon.HEX_SIZE + Hexagon.HEX_H), y * 2 * Hexagon.HEX_R + (x * -Hexagon.HEX_R));
 

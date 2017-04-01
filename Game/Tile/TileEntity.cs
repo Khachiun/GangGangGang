@@ -1,4 +1,5 @@
 ﻿using SFML.Graphics;
+using SFML.System;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +38,22 @@ namespace GangGang
 
         public int X { get; set; }
         public int Y { get; set; }
+
+        public virtual void Move(Vector2i pos)
+        {
+            
+        }
+
+        public override void Update()
+        {
+            base.Update();
+
+
+
+
+        }
+
+
 
         public virtual void RetrivedDamage(int Damage, Entity sender)
         {
