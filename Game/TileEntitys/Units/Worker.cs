@@ -13,17 +13,41 @@ namespace GangGang
     {
         static Worker()
         {
-            ConvexShape headShape = new ConvexShape();
+            ConvexShape headShape = new ConvexShape(4);
             //fill with vertexes
+            headShape.SetPoint(0, new Vector2f(0, 0));
+            headShape.SetPoint(1, new Vector2f(-1, -1));
+            headShape.SetPoint(2, new Vector2f(0, -2));
+            headShape.SetPoint(3, new Vector2f(1, -1));
+
+            headShape.Position = new Vector2f( Hexagon.HEX_H, Hexagon.HEX_R - 4 );
+            headShape.Scale = new Vector2f(16, 24);
 
             DrawComponent.Regiser("WorkerHead", headShape);
 
-            ConvexShape bodyShape = new ConvexShape();
+            ConvexShape bodyShape = new ConvexShape(4);
             //fill with vertexes
+            bodyShape.SetPoint(0, new Vector2f(0, 0));
+            bodyShape.SetPoint(1, new Vector2f(-1, -1));
+            bodyShape.SetPoint(2, new Vector2f(0, -2));
+            bodyShape.SetPoint(3, new Vector2f(1, -1));
+
+            bodyShape.FillColor = Color.Blue;
+            bodyShape.Position = new Vector2f(Hexagon.HEX_H, Hexagon.HEX_R + 8);
+            bodyShape.Scale = new Vector2f(24, 16);
+
             DrawComponent.Regiser("WorkerBody", bodyShape);
 
-            ConvexShape feetShape = new ConvexShape();
+            ConvexShape feetShape = new ConvexShape(4);
             //fill with vertexes
+            feetShape.SetPoint(0, new Vector2f(-12, 0));
+            feetShape.SetPoint(1, new Vector2f(-6, -6));
+            feetShape.SetPoint(2, new Vector2f(6, -6));
+            feetShape.SetPoint(3, new Vector2f(12, 0));
+
+            feetShape.FillColor = Color.Magenta;
+            feetShape.Position = new Vector2f(Hexagon.HEX_H, Hexagon.HEX_R + 14);
+            feetShape.Scale = new Vector2f(1.5f, 3);
 
             DrawComponent.Regiser("WorkerFeet", feetShape);
 
@@ -37,12 +61,12 @@ namespace GangGang
 
         public Worker(int x, int y, Player owner) : base(x, y, new CircleCollition(Hexagon.HEX_R), owner)
         {
-            DrawComponent head = new DrawComponent("WorkerHead", Layer.UNIT_BASE);
-            DrawComponent body = new DrawComponent("WorkerBody", Layer.UNIT_BASE);
+            DrawComponent body = new DrawComponent("WorkerBody", Layer.UNIT_BASE + 1);
+            DrawComponent head = new DrawComponent("WorkerHead", Layer.UNIT_BASE + 2);
             DrawComponent feet = new DrawComponent("WorkerFeet", Layer.UNIT_BASE);
             
-            Adopt(head);
             Adopt(body);
+            Adopt(head);
             Adopt(feet);
 
             Heath = 10;
