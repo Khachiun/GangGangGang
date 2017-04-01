@@ -9,10 +9,11 @@ using SFML.System;
 
 namespace GangGang
 {
-    class BasicCristal : ResourceBase
+    class BasicCrystal : ResourceBase
     {
+        static Random rnd = new Random();
 
-        static BasicCristal()
+        static ConvexShape createRndCrystal()
         {
             ConvexShape crystal = new ConvexShape(8);
 
@@ -21,27 +22,32 @@ namespace GangGang
             crystal.SetPoint(2, new Vector2f(0, 2));
             crystal.SetPoint(3, new Vector2f(-1, 1));
 
-            Random rn = new Random();
-
-            crystal.Scale = new Vector2f( rn.Next(6, 12), rn.Next(8, 16));
+            crystal.Scale = new Vector2f(rnd.Next(8, 12), rnd.Next(14, 24));
             crystal.FillColor = Color.Cyan;
-            crystal.Position = new Vector2f( 0, -16);
+            crystal.OutlineColor = Color.Black;
+            crystal.OutlineThickness = 0.1f;
+            crystal.Position = new Vector2f( rnd.Next( -26, 26 ), rnd.Next( -26, -16) );
+            crystal.Position += Hexagon.OFFSET_TO_CENTER;
 
-            DrawComponent.Regiser("Cristal", crystal);
+            return crystal;
         }
+
 
         int ueses = 3;
         int useCount = 0;
         int amount = 10;
-        
+
         TileEntity entity;
-        public BasicCristal(int x, int y) : base(x, y)
+        public BasicCrystal(int x, int y) : base(x, y)
         {
-            DrawComponent draw = new DrawComponent("Cristal", Layer.UNIT_BASE);
+            for (int i = 0; i < rnd.Next(3, 5); i++)
+            {
+                DrawComponent draw = new DrawComponent(createRndCrystal(), Layer.UNIT_BASE + i);
+                Adopt(draw);
+            }
 
-
-            draw.Offset += Hexagon.OFFSET_TO_CENTER;
-            Adopt(draw);
+            //draw.Offset += Hexagon.OFFSET_TO_CENTER;
+            //Adopt(draw);
         }
 
         public override void Interacte(TileEntity entity)
