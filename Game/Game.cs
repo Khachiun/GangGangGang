@@ -116,7 +116,7 @@ namespace GangGang
 
             //}
 
-            tilemap.AddTileEntity(new BasicCristal(9, 2));
+            tilemap.AddTileEntity(new BasicCrystal(9, 2));
 
             //Worker worker = new Worker(2, 1, players[0]);
             ////worker.Owner = players;
