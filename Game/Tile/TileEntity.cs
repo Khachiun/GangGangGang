@@ -8,9 +8,38 @@ using System.Threading.Tasks;
 
 namespace GangGang
 {
+
+
+
+
     public abstract class TileEntity : InteractiveEntity, IUseReadTurns
     {
         TextComponent text;
+
+
+        float HpBarWidth = Hexagon.HEX_WIDTH, HpBarHeigt = Hexagon.HEX_H / 2;
+        RectangleShape HpBarGreen, HpBarRed;
+        DrawComponent hpGreen, hpRed;
+
+        private void CreateHpbar()
+        {
+            HpBarGreen = new RectangleShape();
+            
+            HpBarGreen.FillColor = Color.Green;
+
+            HpBarRed = new RectangleShape();
+            HpBarRed.FillColor = Color.Red;
+
+            hpGreen = new DrawComponent(HpBarGreen, Layer.UI_BASE + 1);
+            hpRed = new DrawComponent(HpBarRed, Layer.UI_BASE + 1);
+
+            UpdateHpBar();
+
+        }
+        private void UpdateHpBar()
+        {
+            HpBarGreen.Size = new Vector2f( Heath / MaxHealth * HpBarWidth, HpBarHeigt);
+        }
 
         public TileEntity(int x, int y, CollitionComponent collition, Player owner = null) : base(collition)
         {
@@ -21,12 +50,16 @@ namespace GangGang
             text = new TextComponent(Heath.ToString(), GangGang.Priority.UNIT_BASE + 1);
             text.Offset += new SFML.System.Vector2f(0, -Hexagon.HEX_H);
             text.Color = Color.White;
+            text.Enable = false;
             Adopt(text);
 
             Priority = GangGang.Priority.UNIT_BASE;
             this.Owner = owner;
+
+
+            CreateHpbar();
         }
-        public TileEntity(int x,int y, Player owner): this(x,y, new CircleCollition(Hexagon.HEX_R), owner)
+        public TileEntity(int x, int y, Player owner) : this(x, y, new CircleCollition(Hexagon.HEX_R), owner)
         {
 
         }
@@ -34,10 +67,19 @@ namespace GangGang
         public Player Owner { get; set; }
 
 
-
         private int health = 0;
-        public int Heath { get { return health; } set { health = value; text.Text = Heath.ToString(); } }
-        public int MaxHealth { get; set; }
+        public int Heath
+        {
+            get { return health; }
+            set
+            {
+                health = value;
+                text.Text = Heath.ToString();
+                
+                
+            }
+        }
+        public int MaxHealth { get; set; } = 1;
         public int Regen { get; set; }
 
         protected float Speed { get; set; } = 0.9f;
@@ -49,7 +91,7 @@ namespace GangGang
         public virtual void Move(Vector2i pos)
         {
             Offset = Position - Hexagon.TRANSLATE(pos);
-            
+
             TileMap map = Parent.Parent as TileMap;
             map.MoveEntity(this, pos);
         }
@@ -62,8 +104,6 @@ namespace GangGang
 
         }
 
-
-
         public virtual void RetrivedDamage(int Damage, Entity sender)
         {
             Heath -= Damage;
@@ -73,7 +113,8 @@ namespace GangGang
             }
         }
 
-        public virtual void Destryed(Entity sender) {
+        public virtual void Destryed(Entity sender)
+        {
             //createParicles
             TileMap map = Parent.Parent as TileMap;
             map.RemoveEntity(this);
@@ -88,6 +129,7 @@ namespace GangGang
                 Heath = MaxHealth;
             }
         }
+
 
         public override void Click(bool yes)
         {
@@ -107,6 +149,12 @@ namespace GangGang
 
                 }
             }
+        }
+
+        public override void Hover(bool yes)
+        {
+            base.Hover(yes);
+            text.Enable = yes;
         }
     }
 

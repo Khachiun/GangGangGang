@@ -17,12 +17,19 @@ namespace GangGang
         static InWorldList()
         {
             buttenSize = new Square(200, 50);
-            backgrund = new RectangleShape(new Square(200, 70), new Color(60, 60, 60, 100).ToTexture());
+
+
+            //backgrund = new RectangleShape(new Square(200, 70), new Color(60, 60, 60, 100).ToTexture());
+            backgrund = new RectangleShape(new Vector2f(800, 70));
+            backgrund.FillColor = new Color(60, 60, 60, 100);
             DrawComponent.Regiser("bg", backgrund);
-            RectangleShape shape = new RectangleShape(buttenSize, new Color(80, 80, 80, 100).ToTexture());
+
+            RectangleShape shape = new RectangleShape(new Vector2f(200, 50));
+            shape.FillColor = new Color(80, 80, 80, 100);
             DrawComponent.Regiser("btn", shape);
 
-            RectangleShape selectShape = new RectangleShape(buttenSize, new Color(150, 150, 255, 150).ToTexture());
+            RectangleShape selectShape = new RectangleShape(new Vector2f(200, 50));
+            selectShape.FillColor = new Color(150, 150, 255, 150);
             DrawComponent.Regiser("btnSelect", selectShape);
 
 
@@ -55,10 +62,11 @@ namespace GangGang
             options[selected].Display = true;
             Adopt(selectingGrafik);
 
-            Square backgruond = new Square(0, 0, 220, (buttenSize.Size.Y + 10) * options.Count + 10);
-            backgrund.Rectangel = backgruond;
+            //Square backgruond = new Square(0, 0, 220, (buttenSize.Size.Y + 10) * options.Count + 10);
+            float height = (buttenSize.Size.Y + 10) * options.Count + 10;
+            backgrund.Size = new Vector2f(220, height);
 
-            RectangleCollition col = new RectangleCollition(backgruond, new Vector2f());
+            RectangleCollition col = new RectangleCollition(new Square(220,height), new Vector2f());
             Adopt(col);
             Collider = col;
 
@@ -69,8 +77,8 @@ namespace GangGang
                 options[i].Calculate();
                 CollitionComponent butten = new RectangleCollition(buttenSize, new Vector2f());
                 butten.Adopt(new DrawComponent("btn", Layer.UI_BASE + 1));
-                butten.Adopt(new TextComponent(options[i].UiName +" C: " + options[i].cristalConsumtion, Layer.UI_BASE + 2));
-                
+                butten.Adopt(new TextComponent(options[i].UiName + " C: " + options[i].cristalConsumtion, Layer.UI_BASE + 2));
+
 
                 butten.Offset = new Vector2f(10, (buttenSize.Size.Y + 10) * i + 10);
                 buttens[i] = butten;
@@ -192,5 +200,5 @@ namespace GangGang
 
 
     }
-  
+
 }

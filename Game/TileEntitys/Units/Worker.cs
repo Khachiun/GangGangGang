@@ -108,15 +108,6 @@ namespace GangGang
             //WorkComponent work = new WorkComponent();
             //Adopt(work);
         }
-
-        public override void Click(bool yes)
-        {
-            base.Click(yes);
-        }
-        public override void Hover(bool yes)
-        {
-
-        }
     }
 
 

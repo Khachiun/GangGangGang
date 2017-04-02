@@ -12,17 +12,17 @@ namespace GangGang
     {
         static House()
         {
-            RectangleShape shape = new RectangleShape(new Square() * Hexagon.HEX_SIZE * 2, new Texture("Content/Assets/Textures/Building.png"));
-            DrawComponent.Regiser("Buliding", shape);
+            //RectangleShape shape = new RectangleShape(new Square() * Hexagon.HEX_SIZE * 2, new Texture("Content/Assets/Textures/Building.png"));
+           // DrawComponent.Regiser("Buliding", shape);
         }
         public House(int x, int y, Player owner) : base(x, y, owner)
         {
             SpawnTileEntityComponent spawn = new SpawnTileEntityComponent("Spawn", 10, 3, (X, Y) => new Worker(X, Y, Owner));
             spawn.Enable = false;
             Adopt(spawn);
-            DrawComponent draw = new DrawComponent("Buliding", Layer.UNIT_BASE);
-            draw.Offset += -Hexagon.OFFSET_TO_CENTER;
-            Adopt(draw);
+            //DrawComponent draw = new DrawComponent("Buliding", Layer.UNIT_BASE);
+            //draw.Offset += -Hexagon.OFFSET_TO_CENTER;
+            //Adopt(draw);
 
         }
     }

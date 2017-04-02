@@ -39,7 +39,7 @@ namespace GangGang
             players = new Player[playerCount];
             for (int i = 0; i < playerCount; i++)
             {
-                players[i] = new Player() { ID = i };
+                players[i] = new Player() { ID = i , Cristals = 10000};
             }
             CurrrentPlayer = players[0];
 
