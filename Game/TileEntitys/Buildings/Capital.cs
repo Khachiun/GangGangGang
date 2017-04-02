@@ -36,7 +36,7 @@ namespace GangGang
             capitalShape.SetPoint(1, new Vector2f(-26, 0));
             capitalShape.SetPoint(2, new Vector2f(26, 0));
 
-            capitalShape.FillColor = new Color(50, 50, 50);
+            capitalShape.FillColor = new Color(100, 100, 100);
 
             capitalShape.Position += Hexagon.OFFSET_TO_CENTER;
 
@@ -52,7 +52,7 @@ namespace GangGang
 
             capitalTower1.Position += Hexagon.OFFSET_TO_CENTER;
 
-            capitalTower1.FillColor = new Color(100, 100, 100);
+            capitalTower1.FillColor = new Color(150, 150, 150);
 
             return capitalTower1;
         }
@@ -64,7 +64,7 @@ namespace GangGang
             capitalTower2.SetPoint(1, new Vector2f(3, 0));
             capitalTower2.SetPoint(2, new Vector2f(34, 0));
 
-            capitalTower2.FillColor = new Color(120, 120, 120);
+            capitalTower2.FillColor = new Color(170, 170, 170);
 
             capitalTower2.Position += Hexagon.OFFSET_TO_CENTER;
 
