@@ -19,8 +19,7 @@ namespace GangGang
 
         public static float Angle => Controller.angel;
         public static Vector2i Diraction => Controller.GridDiraction;
-
-
+        public static bool UseController { get; set; }
         public static Controller Controller { get; private set; }
 
         static Input()

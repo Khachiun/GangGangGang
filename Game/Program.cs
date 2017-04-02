@@ -95,7 +95,7 @@ namespace GangGang
 
 
 
-                dedu(window, game);
+                //dedu(window, game);
 
                 //sätter "view"n till UI view:n
                 window.SetView(ui_view);

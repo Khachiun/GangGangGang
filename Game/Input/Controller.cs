@@ -32,6 +32,7 @@ namespace GangGang
         public Vector2f LeftStick;
         public Vector2f RigthStick;
 
+        public float BumperValue { get; private set; }
 
         private bool[] LasteIteration = new bool[(int)Butten.BUTTEN_COUNT];
         private bool[] EventSate = new bool[(int)Butten.BUTTEN_COUNT];
@@ -161,6 +162,7 @@ namespace GangGang
 
                     break;
                 case Joystick.Axis.Z:
+                    controllers[e.JoystickId].BumperValue = e.Position / 2;
                     break;
                 case Joystick.Axis.R: // Y
                     controllers[e.JoystickId].RigthStick.Y = e.Position / 100;
@@ -169,6 +171,7 @@ namespace GangGang
                     controllers[e.JoystickId].RigthStick.X = e.Position / 100;
                     break;
                 case Joystick.Axis.V:
+
                     break;
                 case Joystick.Axis.PovX:
                     controllers[e.JoystickId].dpad.X = e.Position / 100;

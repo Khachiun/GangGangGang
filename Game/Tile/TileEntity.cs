@@ -26,6 +26,10 @@ namespace GangGang
             Priority = GangGang.Priority.UNIT_BASE;
             this.Owner = owner;
         }
+        public TileEntity(int x,int y, Player owner): this(x,y, new CircleCollition(Hexagon.HEX_R), owner)
+        {
+
+        }
 
         public Player Owner { get; set; }
 

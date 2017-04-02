@@ -9,38 +9,7 @@ using Czaplicki.Universal.Chain;
 
 namespace GangGang
 {
-    public class Player
-    {
-        public int ID { get; set; }
-        public int Capacity { get; set; }
-        public int Cristals { get; set; }
-
-        public static Color[] colors;
-        static Player()
-        {
-            colors = new Color[3];
-            colors[0] = Color.White;
-            colors[1] = Color.Red;
-            colors[2] = Color.Blue;
-
-        }
-        public static void IndexRegisterShape(string id, Func<Shape> createShape)
-        {
-            for (int i = 0; i < Game.playerCount + 1; i++)
-            {
-                Shape s = createShape();
-                s.FillColor += colors[i];
-                string regId = id + i;
-                DrawComponent.Regiser(regId, s);
-            }
-        }
-        public static DrawComponent GetIndexedShape(string id, int layer, Player owner)
-        {
-            int ownerId = owner?.ID + 1 ?? 0;
-            return new DrawComponent(id + ownerId , layer);
-        }
-    }
-
+    
     public class Game : Entity
     {
         public static bool UseController { get; set; }
@@ -64,8 +33,8 @@ namespace GangGang
 
         public void Init(CRenderWindow window, int playerCount)
         {
-            int width = 10;
-            int height = 10;
+            int width = 40;
+            int height = 40;
             Game.playerCount = playerCount;
             players = new Player[playerCount];
             for (int i = 0; i < playerCount; i++)
@@ -102,6 +71,12 @@ namespace GangGang
                 tilemap.AddTileEntity(new Worker(item.X, item.Y, players[1]));
             }
 
+            tilemap.RemoveEntity(tilemap[0, 0].Entity);
+            tilemap.RemoveEntity(tilemap[18, 9].Entity);
+
+            tilemap.AddTileEntity(new Capital(0, 0, players[0]));
+            tilemap.AddTileEntity(new Capital(18, 9, players[1]));
+
             int cw = 2;
             int cc = width - 1;
 
@@ -116,7 +91,7 @@ namespace GangGang
 
             //}
 
-            tilemap.AddTileEntity(new BasicCristal(9, 2));
+           tilemap.AddTileEntity(new BasicCrystal(9, 2));
 
             //Worker worker = new Worker(2, 1, players[0]);
             ////worker.Owner = players;
@@ -190,7 +165,8 @@ namespace GangGang
                     Console.WriteLine("next turn");
                 }
 
-
+                float zoom = 1 + Input.Controller.BumperValue * 0.0005f;
+                Camera.Zoom(zoom );
                 velocity = Input.Controller.RigthStick.Normalize();
                 speed = Math.Min(1, Input.Controller.RigthStick.Length());
                 if (speed < 0.2f)
@@ -316,6 +292,16 @@ namespace GangGang
             turnCount++;
 
             CurrrentPlayer = players[turnCount % playerCount];
+
+            List<Capital> capitals = new List<Capital>();
+            FetchAll<Capital>(ref capitals);
+            foreach (var item in capitals)
+            {
+                if (item.Owner == CurrrentPlayer)
+                {
+                    Camera.Center = item.Position;
+                }
+            }
 
             List<IUseReadTurns> list = new List<IUseReadTurns>();
             FetchAll<IUseReadTurns>(ref list);
