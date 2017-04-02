@@ -56,3 +56,7 @@ Game/bin/Debug/Game.pdb
 Game/obj/Debug/Game.pdb
 Game/bin/Debug/Game.exe
 Game/bin/Debug/Game.exe
+Czaplicki.SFMLE/bin/Debug/Czaplicki.SFMLE.dll
+Game/bin/Debug/Czaplicki.SFMLE.pdb
+Game/obj/Debug/Game.csprojResolveAssemblyReference.cache
+*.exe
