@@ -22,14 +22,22 @@ namespace GangGang
             crystal.SetPoint(2, new Vector2f(0, 2));
             crystal.SetPoint(3, new Vector2f(-1, 1));
 
-            crystal.Scale = new Vector2f(rnd.Next(8, 12), rnd.Next(14, 24));
+            crystal.Scale = new Vector2f(rnd.Next(8, 12), rnd.Next(12, 16));
             crystal.FillColor = Color.Cyan;
             crystal.OutlineColor = Color.Black;
             crystal.OutlineThickness = 0.1f;
-            crystal.Position = new Vector2f( rnd.Next( -26, 26 ), rnd.Next( -26, -16) );
-            crystal.Position += Hexagon.OFFSET_TO_CENTER;
+
+            float ix = (float)rnd.NextDouble();
+            float iy = (float)rnd.NextDouble();
+
+            ix *= 32;
+            iy *= 32;
+
+            crystal.Position = new Vector2f( ix, iy - 10 );
 
             return crystal;
+
+            
         }
 
 
@@ -37,17 +45,43 @@ namespace GangGang
         int useCount = 0;
         int amount = 10;
 
+        DrawComponent[] crystals;
+        float[] refSin;
+
         TileEntity entity;
         public BasicCrystal(int x, int y) : base(x, y)
         {
-            for (int i = 0; i < rnd.Next(3, 5); i++)
+            int crystalAmount = rnd.Next(3,5);
+
+            crystals = new DrawComponent[crystalAmount];
+            refSin = new float[ crystalAmount ];
+
+            for (int i = 0; i < refSin.Length; i++)
+                refSin[i] = 0;
+
+            for (int i = 0; i < crystalAmount; i++)
             {
-                DrawComponent draw = new DrawComponent(createRndCrystal(), Layer.UNIT_BASE + i);
-                Adopt(draw);
+                crystals[i]= new DrawComponent(createRndCrystal(), Layer.UNIT_BASE + i);
+                Adopt(crystals[i]);
             }
 
             //draw.Offset += Hexagon.OFFSET_TO_CENTER;
             //Adopt(draw);
+        }
+
+        public override void Update()
+        {
+            base.Update();
+
+            for (int i = 0; i < refSin.Length; i++)
+            {
+                refSin[i] += (i+ 1) * 0.01f;
+            }
+
+            for (int i = 0; i < crystals.Length; i++)
+            {
+                crystals[i].Offset = new Vector2f((float)Math.Cos((double)refSin[i]) * 4, (float)Math.Sin((double)refSin[i]) * 10 );
+            }
         }
 
         public override void Interacte(TileEntity entity)
