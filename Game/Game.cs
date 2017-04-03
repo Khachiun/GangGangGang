@@ -77,8 +77,8 @@ namespace GangGang
             tilemap.AddTileEntity(new Capital(0, 0, players[0]));
             tilemap.AddTileEntity(new Capital(18, 9, players[1]));
 
-            int cw = 2;
-            int cc = width - 1;
+            //int cw = 2;
+            //int cc = width - 1;
 
 
             //for (int i = cc - cw; i < cc + cw + 1; i++)

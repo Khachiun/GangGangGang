@@ -2,43 +2,44 @@
 using SFML.System;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace GangGang
 {
-
-
-
-
     public abstract class TileEntity : InteractiveEntity, IUseReadTurns
     {
         TextComponent text;
 
 
-        float HpBarWidth = Hexagon.HEX_WIDTH, HpBarHeigt = Hexagon.HEX_H / 2;
+        float HpBarWidth = Hexagon.HEX_WIDTH * 2;
+        float HpBarHeigt = Hexagon.HEX_H;
         RectangleShape HpBarGreen, HpBarRed;
         DrawComponent hpGreen, hpRed;
 
         private void CreateHpbar()
         {
-            HpBarGreen = new RectangleShape();
-            
-            HpBarGreen.FillColor = Color.Green;
-
-            HpBarRed = new RectangleShape();
-            HpBarRed.FillColor = Color.Red;
-
-            hpGreen = new DrawComponent(HpBarGreen, Layer.UI_BASE + 1);
-            hpRed = new DrawComponent(HpBarRed, Layer.UI_BASE + 1);
-
+            HpBarGreen = new RectangleShape()
+            {
+                FillColor = Color.Green
+            };
+            HpBarRed = new RectangleShape()
+            {
+                FillColor = Color.Red, OutlineThickness = 2, OutlineColor = Color.Magenta
+                
+            };
             UpdateHpBar();
+            hpGreen = new DrawComponent(HpBarGreen, Layer.UI_BASE + 1);
+            hpRed = new DrawComponent(HpBarRed, Layer.UI_BASE );
+            Adopt(hpGreen);
+            Adopt(hpRed);
 
         }
         private void UpdateHpBar()
         {
-            HpBarGreen.Size = new Vector2f( Heath / MaxHealth * HpBarWidth, HpBarHeigt);
+            ((Shape)HpBarGreen).Scale = new Vector2f(Heath / MaxHealth * HpBarWidth, HpBarHeigt);
+            //HpBarGreen.Scale *= 6;
+            HpBarRed.Size = new Vector2f(Heath / MaxHealth * HpBarWidth, HpBarHeigt);
         }
 
         public TileEntity(int x, int y, CollitionComponent collition, Player owner = null) : base(collition)
@@ -155,6 +156,8 @@ namespace GangGang
         {
             base.Hover(yes);
             text.Enable = yes;
+            //hpGreen.Enable = yes;
+            //hpRed.Enable = yes;
         }
     }
 
