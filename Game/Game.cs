@@ -33,8 +33,8 @@ namespace GangGang
 
         public void Init(CRenderWindow window, int playerCount)
         {
-            int width = 40;
-            int height = 40;
+            int width = 10;
+            int height = 10;
             Game.playerCount = playerCount;
             players = new Player[playerCount];
             for (int i = 0; i < playerCount; i++)
