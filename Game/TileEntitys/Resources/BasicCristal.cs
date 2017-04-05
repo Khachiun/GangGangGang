@@ -67,6 +67,9 @@ namespace GangGang
 
             //draw.Offset += Hexagon.OFFSET_TO_CENTER;
             //Adopt(draw);
+            this.MaxHealth = 100;
+            this.Regen = 5;
+            
         }
 
         public override void Update()
@@ -105,6 +108,7 @@ namespace GangGang
                 entity.Owner.Cristals += amount;
                 useCount++;
             }
+
             base.OnNewTurn();
         }
     }

@@ -18,14 +18,34 @@ namespace GangGang
             Player.IndexRegisterShape("capitalTower2", CreateCapitalTower2);
         }
 
+        DrawComponent t1, t2;
+        float s1, s2;
+        float o1 = 10, o2 = 10;
+
         public Capital(int x, int y, Player owner) : base(x, y, owner)
         {
-            Adopt(new TextComponent("Capital\n" + Owner.ID, Layer.UI_BASE));
+            //Adopt(new TextComponent("Capital\n" + Owner.ID, Layer.UI_BASE));
 
             Adopt(Player.GetIndexedShape("capitalShape", Layer.UNIT_BASE, Owner));
-            Adopt(Player.GetIndexedShape("capitalTower1", Layer.UNIT_BASE + 1, Owner));
-            Adopt(Player.GetIndexedShape("capitalTower2", Layer.UNIT_BASE + 2, Owner));
+            t1 = Player.GetIndexedShape("capitalTower1", Layer.UNIT_BASE + 1, Owner);
+            t2 = Player.GetIndexedShape("capitalTower2", Layer.UNIT_BASE + 2, Owner);
+            Adopt(t1, t2);
+            this.MaxHealth = 20;
+            this.Heath = 10;
+
         }
+
+
+        public override void Update()
+        {
+            base.Update();
+            s1 += 0.020f;
+            t1.Offset = new Vector2f(t1.Offset.X, o1 * (float)Math.Sin(s1));
+            s2 += 0.01f;
+            t2.Offset = new Vector2f(t2.Offset.X, o1 * (float)Math.Sin(s2));
+
+        }
+
 
         //Creating shit ton of shapes
         static ConvexShape CreateCapitalShape()
@@ -38,7 +58,7 @@ namespace GangGang
 
             capitalShape.FillColor = new Color(100, 100, 100);
 
-            capitalShape.Position += Hexagon.OFFSET_TO_CENTER;
+            capitalShape.Position += Hexagon.OFFSET_TO_CENTER + new Vector2f(0, Hexagon.HEX_H);
 
             return capitalShape;
         }
@@ -50,7 +70,7 @@ namespace GangGang
             capitalTower1.SetPoint(1, new Vector2f(-34, 0));
             capitalTower1.SetPoint(2, new Vector2f(-3, 0));
 
-            capitalTower1.Position += Hexagon.OFFSET_TO_CENTER;
+            capitalTower1.Position += Hexagon.OFFSET_TO_CENTER + new Vector2f(0, Hexagon.HEX_H * 0);
 
             capitalTower1.FillColor = new Color(150, 150, 150);
 
@@ -66,7 +86,8 @@ namespace GangGang
 
             capitalTower2.FillColor = new Color(170, 170, 170);
 
-            capitalTower2.Position += Hexagon.OFFSET_TO_CENTER;
+            capitalTower2.Position += Hexagon.OFFSET_TO_CENTER + new Vector2f(0, Hexagon.HEX_H * -0.5f);
+
 
             return capitalTower2;
         }

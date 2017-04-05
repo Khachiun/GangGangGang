@@ -293,15 +293,15 @@ namespace GangGang
 
             CurrrentPlayer = players[turnCount % playerCount];
 
-            List<Capital> capitals = new List<Capital>();
-            FetchAll<Capital>(ref capitals);
-            foreach (var item in capitals)
-            {
-                if (item.Owner == CurrrentPlayer)
-                {
-                    Camera.Center = item.Position;
-                }
-            }
+            //List<Capital> capitals = new List<Capital>();
+            //FetchAll<Capital>(ref capitals);
+            //foreach (var item in capitals)
+            //{
+            //    if (item.Owner == CurrrentPlayer)
+            //    {
+            //        Camera.Center = item.Position;
+            //    }
+            //}
 
             List<IUseReadTurns> list = new List<IUseReadTurns>();
             FetchAll<IUseReadTurns>(ref list);

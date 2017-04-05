@@ -65,6 +65,8 @@ namespace GangGang
         }
 
         DrawComponent head, body, feet;
+        float h = 1, b, f;
+        float ho = 2, bo = 1f, fo;
 
         public Worker(int x, int y, Player owner) : base(x, y, new CircleCollition(Hexagon.HEX_R), owner)
         {
@@ -76,8 +78,8 @@ namespace GangGang
             Adopt(head);
             Adopt(feet);
 
-            Heath = 10;
             MaxHealth = 10;
+            Heath = 5;
             Regen = 1;
 
             //Option o = new Option();
@@ -107,6 +109,16 @@ namespace GangGang
 
             //WorkComponent work = new WorkComponent();
             //Adopt(work);
+        }
+
+        public override void Update()
+        {
+            base.Update();
+            h += 0.04f;
+            head.Offset = new Vector2f(head.Offset.X,  ho * (float)Math.Sin(h) - 3);
+            b += 0.05f;
+            body.Offset = new Vector2f(body.Offset.X, bo * (float)Math.Sin(b));
+
         }
     }
 

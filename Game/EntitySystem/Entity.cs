@@ -49,7 +49,13 @@ namespace GangGang
                 }
 
         }
-
+        public void Adopt(params Entity[] children)
+        {
+            foreach (var child in children)
+            {
+                Adopt(child);
+            }
+        }
         public void Adopt(Entity child)
         {
             if (child.Parent != null) //if it does have parent
