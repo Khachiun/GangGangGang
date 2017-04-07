@@ -28,7 +28,7 @@ namespace GangGang
             cs.StencilBits = 0;
 
             //skapar fönstret
-            CRenderWindow window = new CRenderWindow(new SFML.Window.VideoMode(1280, 720), "", SFML.Window.Styles.Default, cs);
+            CRenderWindow window = new CRenderWindow(new SFML.Window.VideoMode(1020, 720), "", SFML.Window.Styles.Fullscreen, cs);
             //Update to set Values ta all variblesas
             window.DispatchEvents();
             //Sätter framerate limiten till 60, som får update loopen att även gå i 60

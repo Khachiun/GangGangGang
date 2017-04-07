@@ -22,16 +22,16 @@ namespace GangGang
             crystal.SetPoint(2, new Vector2f(0, 2));
             crystal.SetPoint(3, new Vector2f(-1, 1));
 
-            crystal.Scale = new Vector2f(rnd.Next(8, 12), rnd.Next(12, 16));
-            crystal.FillColor = Color.Cyan;
+            crystal.Scale = new Vector2f(rnd.Next(8, 12), rnd.Next(12, 16)) * 0.6f;
+            crystal.FillColor = new Color((byte)rnd.Next(100, 150), (byte)rnd.Next(200, 250), (byte)rnd.Next(200, 250));
             crystal.OutlineColor = Color.Black;
-            crystal.OutlineThickness = 0.1f;
+            //crystal.OutlineThickness = 0.1f;
 
             float ix = (float)rnd.NextDouble();
             float iy = (float)rnd.NextDouble();
 
             ix *= 32;
-            iy *= 32;
+            iy *= 64;
 
             crystal.Position = new Vector2f( ix, iy - 10 );
 
@@ -47,6 +47,7 @@ namespace GangGang
 
         DrawComponent[] crystals;
         float[] refSin;
+        float[] speed;
 
         TileEntity entity;
         public BasicCrystal(int x, int y) : base(x, y)
@@ -55,10 +56,13 @@ namespace GangGang
 
             crystals = new DrawComponent[crystalAmount];
             refSin = new float[ crystalAmount ];
+            speed = new float[crystalAmount];
 
             for (int i = 0; i < refSin.Length; i++)
+            {
                 refSin[i] = 0;
-
+                speed[i] = rnd.Next(1,4);
+            }
             for (int i = 0; i < crystalAmount; i++)
             {
                 crystals[i]= new DrawComponent(createRndCrystal(), Layer.UNIT_BASE + i);
@@ -78,12 +82,12 @@ namespace GangGang
 
             for (int i = 0; i < refSin.Length; i++)
             {
-                refSin[i] += (i+ 1) * 0.01f;
+                refSin[i] += ( rnd.Next(0,50) / 10 + 1) * 0.01f;
             }
 
             for (int i = 0; i < crystals.Length; i++)
             {
-                crystals[i].Offset = new Vector2f((float)Math.Cos((double)refSin[i]) * 4, (float)Math.Sin((double)refSin[i]) * 10 );
+                crystals[i].Offset = new Vector2f((float)Math.Cos((double)refSin[i]) * speed[i] / 2, (float)Math.Sin((double)refSin[i]) * speed[i] / 1 );
             }
         }
 

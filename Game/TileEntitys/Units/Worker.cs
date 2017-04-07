@@ -1,4 +1,5 @@
 ﻿using Czaplicki.SFMLE;
+using Czaplicki.SFMLE.Extentions;
 using SFML.Graphics;
 using SFML.System;
 using System;
@@ -114,10 +115,13 @@ namespace GangGang
         public override void Update()
         {
             base.Update();
-            h += 0.04f;
+            //Offset *= 0.9f;
+            h += 0.04f * (1 + Offset.Length() * 0.3f);
             head.Offset = new Vector2f(head.Offset.X,  ho * (float)Math.Sin(h) - 3);
-            b += 0.05f;
+            b += 0.05f * (1 + Offset.Length() * 0.3f);
             body.Offset = new Vector2f(body.Offset.X, bo * (float)Math.Sin(b));
+
+            
 
         }
     }

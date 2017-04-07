@@ -9,7 +9,7 @@ using Czaplicki.Universal.Chain;
 
 namespace GangGang
 {
-    
+
     public class Game : Entity
     {
         public static bool UseController { get; set; }
@@ -33,13 +33,16 @@ namespace GangGang
 
         public void Init(CRenderWindow window, int playerCount)
         {
-            int width = 10;
-            int height = 10;
+            uibar = new RectangleShape(new Vector2f(window.Size.X, DefaultText.Size * 1.2f));
+
+
+            int width = 15;
+            int height = 15;
             Game.playerCount = playerCount;
             players = new Player[playerCount];
             for (int i = 0; i < playerCount; i++)
             {
-                players[i] = new Player() { ID = i , Cristals = 10000};
+                players[i] = new Player() { ID = i, Cristals = 10000 };
             }
             CurrrentPlayer = players[0];
 
@@ -72,10 +75,48 @@ namespace GangGang
             }
 
             tilemap.RemoveEntity(tilemap[0, 0].Entity);
-            tilemap.RemoveEntity(tilemap[18, 9].Entity);
+            tilemap.RemoveEntity(tilemap[28, 14].Entity);
 
             tilemap.AddTileEntity(new Capital(0, 0, players[0]));
-            tilemap.AddTileEntity(new Capital(18, 9, players[1]));
+            tilemap.AddTileEntity(new Capital(28, 14, players[1]));
+
+
+
+
+            list.Clear();
+            tilemap.GetSuroundingPositions(new Vector2i(10, 10), 2, ref list);
+
+            foreach (var item in list)
+            {
+                tilemap.AddTileEntity(new BasicCrystal(item.X, item.Y));
+            }
+
+
+            list.Clear();
+            tilemap.GetSuroundingPositions(new Vector2i(18, 4), 2, ref list);
+
+            foreach (var item in list)
+            {
+                tilemap.AddTileEntity(new BasicCrystal(item.X, item.Y));
+            }
+
+
+            list.Clear();
+            tilemap.GetSuroundingPositions(new Vector2i(23, 14), 1, ref list);
+
+            foreach (var item in list)
+            {
+                tilemap.AddTileEntity(new BasicCrystal(item.X, item.Y));
+            }
+
+
+            list.Clear();
+            tilemap.GetSuroundingPositions(new Vector2i(6, 0), 1, ref list);
+
+            foreach (var item in list)
+            {
+                tilemap.AddTileEntity(new BasicCrystal(item.X, item.Y));
+            }
 
             //int cw = 2;
             //int cc = width - 1;
@@ -91,7 +132,7 @@ namespace GangGang
 
             //}
 
-           tilemap.AddTileEntity(new BasicCrystal(9, 2));
+            tilemap.AddTileEntity(new BasicCrystal(14, 5));
 
             //Worker worker = new Worker(2, 1, players[0]);
             ////worker.Owner = players;
@@ -114,14 +155,28 @@ namespace GangGang
             shape.OutlineColor = Color.Red;
 
 
+            foreach (Tile tile in tilemap.Children)
+            {
+                if (tile.Entity == null)
+                {
+                    //tilemap.AddTileEntity(new BasicCrystal(tile.X, tile.Y));
+                }
+            }
+
+
         }
 
         public void Update(CRenderWindow window)
         {
 
+
             MouseState ms = window.MouseState;
             KeyboardState kbs = window.KeyboardState;
             Vector2f worldMouse = window.MapPixelToCoords(ms.position);
+            if (kbs[Key.Space] > 0 )
+            {
+                Camera.Zoom(0.97f);
+            }
 
             if (Input.Controller[Butten.LEFT_TRIGGER] > 0)
             {
@@ -166,7 +221,7 @@ namespace GangGang
                 }
 
                 float zoom = 1 + Input.Controller.BumperValue * 0.0005f;
-                Camera.Zoom(zoom );
+                Camera.Zoom(zoom);
                 velocity = Input.Controller.RigthStick.Normalize();
                 speed = Math.Min(1, Input.Controller.RigthStick.Length());
                 if (speed < 0.2f)
@@ -255,22 +310,28 @@ namespace GangGang
         }
 
 
-        private Text uiText = DefaultText.GenerateText("");
+        private Text uiText = DefaultText.GenerateText("", new Vector2f(), new Color(255,255,255,255));
         private RenderArgs args = new RenderArgs();
 
         private Vector2f idpos = new Vector2f();
         private Vector2f cristalpos = new Vector2f(0, 40);
         private Vector2f debugpos = new Vector2f(0, 80);
+        private RectangleShape uibar;
+
         public void UI_Draw(CRenderWindow window)
         {
+
+
             DefaultText.Size = 32;
 
-            uiText.Position = idpos;
-            uiText.DisplayedString = CurrrentPlayer.ID.ToString();
-            window.Draw(uiText, args);
+           
+            window.Draw(uibar);
+            //uiText.Position = idpos;
+            //uiText.DisplayedString = CurrrentPlayer.ID.ToString();
+            //window.Draw(uiText, args);
 
-            uiText.Position = cristalpos;
-            uiText.DisplayedString = CurrrentPlayer.Cristals.ToString();
+            uiText.Position = idpos;
+            uiText.DisplayedString = "Crystals : " + CurrrentPlayer.Cristals.ToString();
             window.Draw(uiText, args);
 
             if (debugEnabled)
@@ -292,6 +353,8 @@ namespace GangGang
             turnCount++;
 
             CurrrentPlayer = players[turnCount % playerCount];
+
+            uibar.FillColor = (new Color(100,100,100) + Player.colors[CurrrentPlayer.ID + 1]).SetAlpha(150);
 
             //List<Capital> capitals = new List<Capital>();
             //FetchAll<Capital>(ref capitals);

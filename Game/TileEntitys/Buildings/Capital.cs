@@ -43,6 +43,7 @@ namespace GangGang
             t1.Offset = new Vector2f(t1.Offset.X, o1 * (float)Math.Sin(s1));
             s2 += 0.01f;
             t2.Offset = new Vector2f(t2.Offset.X, o1 * (float)Math.Sin(s2));
+           
 
         }
 

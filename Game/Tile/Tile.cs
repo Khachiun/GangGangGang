@@ -14,7 +14,7 @@ namespace GangGang
 
     public class Tile : Entity
     {
-
+        static Random rnd = new Random();
         static Tile()
         {
             ConvexShape hexagon = Hexagon.GenHexagon();
@@ -28,7 +28,8 @@ namespace GangGang
 
         public int X { get; set; }
         public int Y { get; set; }
-
+        float speed, vel;
+        DrawComponent grf;
         public Tile(int x, int y)
         {
             this.X = x;
@@ -37,17 +38,22 @@ namespace GangGang
             base.Offset = Hexagon.TRANSLATE(x, y);
 
             //adds a grafik
-            base.Adopt(new DrawComponent("Hexagon", Layer.TILE_BASE));
+            grf = new DrawComponent("Hexagon", Layer.TILE_BASE);
+            base.Adopt(grf);
 
             //Add Collition Check
             CollitionComponent col = new CircleCollition(Hexagon.HEX_R, Hexagon.OFFSET_TO_CENTER);
             col.SetTag("Tile");
             base.Adopt(col);
+
+
+            //speed = rnd.NextDouble()
         }
+        float t;
         public override void Update()
         {
-
-
+            //t += (float)rnd.NextDouble();
+            //grf.Offset = new Vector2f( (float)Math.Sin(t), (float)Math.Sin(t));
 
             base.Update();
         }

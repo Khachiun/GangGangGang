@@ -20,6 +20,5 @@ C:\Users\jessy.brodin\Documents\MEGA\Development\C#\Projects\GangGangGang\Czapli
 C:\Users\jessy.brodin\Documents\MEGA\Development\C#\Projects\GangGangGang\Czaplicki.Universal\obj\Debug\Czaplicki.Universal.pdb
 C:\Users\jessy.brodin\Documents\GitHub\GangGangGang\Czaplicki.Universal\bin\Debug\Czaplicki.Universal.dll
 C:\Users\jessy.brodin\Documents\GitHub\GangGangGang\Czaplicki.Universal\bin\Debug\Czaplicki.Universal.pdb
-C:\Users\jessy.brodin\Documents\GitHub\GangGangGang\Czaplicki.Universal\obj\Debug\Czaplicki.Universal.csprojResolveAssemblyReference.cache
 C:\Users\jessy.brodin\Documents\GitHub\GangGangGang\Czaplicki.Universal\obj\Debug\Czaplicki.Universal.dll
 C:\Users\jessy.brodin\Documents\GitHub\GangGangGang\Czaplicki.Universal\obj\Debug\Czaplicki.Universal.pdb

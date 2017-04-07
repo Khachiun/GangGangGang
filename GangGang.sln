@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Czaplicki.SFMLE", "Czaplick
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Czaplicki.Universal", "Czaplicki.Universal\Czaplicki.Universal.csproj", "{EB9CD57F-93E4-4ADC-9A34-8BB07946BFB3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CharacterCreator", "CharacterCreator\CharacterCreator.csproj", "{10E5B2DC-64FA-4125-A1D4-7C5A74CFC934}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{EB9CD57F-93E4-4ADC-9A34-8BB07946BFB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB9CD57F-93E4-4ADC-9A34-8BB07946BFB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB9CD57F-93E4-4ADC-9A34-8BB07946BFB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10E5B2DC-64FA-4125-A1D4-7C5A74CFC934}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10E5B2DC-64FA-4125-A1D4-7C5A74CFC934}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10E5B2DC-64FA-4125-A1D4-7C5A74CFC934}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10E5B2DC-64FA-4125-A1D4-7C5A74CFC934}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
